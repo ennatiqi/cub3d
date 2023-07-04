@@ -6,7 +6,7 @@
 #    By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 12:22:46 by aachfenn          #+#    #+#              #
-#    Updated: 2023/06/30 15:19:05 by aachfenn         ###   ########.fr        #
+#    Updated: 2023/07/02 23:22:53 by aachfenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,5 +43,7 @@ clean	:
 fclean	:	clean
 		make fclean -C libft
 		${RM} cub3D
+
+it		: all ./cub3D
 
 re		: fclean all
