@@ -6,17 +6,11 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:34:25 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/07/21 15:30:38 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:37:07 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int map_check(char **av)
-{
-	name_check(av[1]);
-	return (0);
-}
 
 void	path_maker(char **mape, int i, int j, t_cub *cub)
 {
@@ -122,6 +116,7 @@ void	check_the_path_2(char **map, t_cub *cub)
 		j = 0;
 		while (map[i][j])
 		{
+			// printf("%c\n", map[i][j]);
 			if (map[i][j] == '0' && map[i][j + 1] == 32)
 				check = 1;
 			if (map[i][j] == '0' && map[i][j - 1] == 32)
@@ -155,6 +150,7 @@ int main(int ac, char **av)
 	(void)win;
 	if (ac == 2)
 	{
+		name_check(av[1]);
 		cub.maplines = maplines(av[1]);
 		map = mapreader(av[1]);
 		cub.i = 0;
@@ -166,7 +162,6 @@ int main(int ac, char **av)
 		{
 			puts(map[ii++]);
 		}
-		map_check(av);
 	}
 	// init = mlx_init();
 	// win = mlx_new_window(init, 500, 500, "101");
