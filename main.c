@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:34:25 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/07/21 15:29:40 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:30:38 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,29 +157,10 @@ int main(int ac, char **av)
 	{
 		cub.maplines = maplines(av[1]);
 		map = mapreader(av[1]);
-		mape = mapreader(av[1]);
 		cub.i = 0;
 		cub.j = 0;
-		int check = 0;
-		while (mape[cub.i])
-		{
-			cub.j = 0;
-			while (mape[cub.i][cub.j])
-			{
-				if (mape[cub.i][cub.j] == '1')
-				{
-					check = 1;
-					break ;
-				}
-				cub.j++;
-			}
-			if (check == 1)
-				break ;
-			cub.i++;
-		}
 		check_the_path(map, &cub);
-		// path_maker(mape, cub.i, cub.j, &cub);
-		check_the_path_2(mape, &cub);
+		check_the_path_2(map, &cub);
 		int ii = 0;
 		while (map[ii])
 		{
