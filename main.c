@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:34:25 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/07/21 23:18:02 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/07/21 23:26:59 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int main(int ac, char **av)
 	void	*win;
 	char	**map;
 	char	**mape;
-	t_cub	cub;±
+	t_cub	cub;
 
 	(void)ac;
 	(void)av;
@@ -130,7 +130,7 @@ int main(int ac, char **av)
 		while (map[ii])
 		{
 			puts(map[ii++]);
-		}§§
+		}
 	}
 	// init = mlx_init();
 	// win = mlx_new_window(init, 500, 500, "101");
