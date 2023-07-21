@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 20:22:42 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/06/30 14:10:47 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:22:17 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 #include "libft/libft.h"
 #include "get_next_line/get_next_line.h"
 #include "MLX/mlx.h"
+
+typedef struct s_cub
+{
+	int	maplines;
+	int	i;
+	int	j;
+}	t_cub;
+
 
 //map_check
 int	name_check(char *name);

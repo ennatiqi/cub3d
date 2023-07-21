@@ -6,7 +6,7 @@
 #    By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 12:22:46 by aachfenn          #+#    #+#              #
-#    Updated: 2023/07/02 23:22:53 by aachfenn         ###   ########.fr        #
+#    Updated: 2023/07/17 15:13:53 by aachfenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC		= cc
 
 # CFLAGS	= arch -x86_64 cc -L../mlx -lmlx -framework OpenGL -framework AppKit
 
-CFLAGS	= -fsanitize=address -g #-Wall -Werror -Wextra 
+CFLAGS	= #-fsanitize=address -g #-Wall -Werror -Wextra 
 
 OBJ		= ${SRC:.c=.o}
 
@@ -44,6 +44,6 @@ fclean	:	clean
 		make fclean -C libft
 		${RM} cub3D
 
-it		: all ./cub3D
+# it		: all ./cub3D
 
 re		: fclean all
