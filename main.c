@@ -6,42 +6,11 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:34:25 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/07/21 15:37:07 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:41:08 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	path_maker(char **mape, int i, int j, t_cub *cub)
-{
-	mape[i][j] = 'P';
-	// int ii = 0;
-	// while (mape[ii])
-	// {
-	// 	puts(mape[ii++]);
-	// }
-	if ((j != ft_strlen(mape[i]) && mape[i][j + 1] == '1'))
-	{
-		// printf("---> %zu\n", ft_strlen(mape[i]));
-		// puts("()))))))))))");
-		path_maker(mape, i, j + 1, cub);
-	}
-	if (j != 0 && mape[i][j - 1] == '1')
-	{
-		// puts("==============");
-		path_maker(mape, i, j - 1, cub);
-	}
-	if (i != 0 && mape[i - 1][j] == '1')
-	{
-		// puts("+++++++++");
-		path_maker(mape, i - 1, j, cub);
-	}
-	if (i != (cub->maplines - 1) && mape[i + 1][j] == '1')
-	{
-		// puts("-----------");
-		path_maker(mape, i + 1, j, cub);
-	}
-}
 
 void	check_the_path(char **map, t_cub *cub)
 {
