@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:34:25 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/07/21 23:29:26 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/07/22 00:16:28 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ int main(int ac, char **av)
 		cub.j = 0;
 		check_the_path(map, &cub);
 		check_the_path_2(map, &cub);
-		int ii = 0;
-		while (map[ii])
-		{
-			puts(map[ii++]);
-		}
+		check_component(map);
+		// int ii = 0;
+		// while (map[ii])
+		// {
+		// 	puts(map[ii++]);
+		// }
 	}
 	// init = mlx_init();
 	// win = mlx_new_window(init, 500, 500, "101");

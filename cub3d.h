@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 20:22:42 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/07/21 23:28:35 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/07/22 00:16:51 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_cub
 //map_check
 void	check_the_path(char **map, t_cub *cub);
 void	check_the_path_2(char **map, t_cub *cub);
+void	check_component(char **map);
 int		name_check(char *name);
 int		exiter(void);
 

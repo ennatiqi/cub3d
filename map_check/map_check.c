@@ -6,11 +6,44 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:19:10 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/07/21 23:30:34 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/07/22 00:16:41 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	check_component(char **map)
+{
+	int	i;
+	int	j;
+	int	check;
+
+	i = 0;
+	j = 0;
+	check = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
+				check++;
+			if (map[i][j] != 32 && map[i][j] != '\n' && map[i][j] != '0' && map[i][j] != '1' \
+			&& map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'E' && map[i][j] != 'W')
+			{
+				printf("%d, %d, '%c'\n", i , j, map[i][j]);
+				printf("UNKNOWN CHARACTER\n");
+				exit (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	if (check != 1)
+	{
+		printf("ERROR ON THE SPAWNING\n");
+	}
+}
 
 void	check_the_path(char **map, t_cub *cub)
 {
