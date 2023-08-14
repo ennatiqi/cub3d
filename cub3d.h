@@ -26,7 +26,7 @@
 #define P3 3 * PI/2
 #define P4 2 * PI
 
-#define DR 0.0174533
+#define DR 0.0174533/8
 
 # define ESC_KEY 53
 # define W_KEY 13

@@ -19,6 +19,10 @@ void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game)
 	float atan;
 
 	atan = 1/tan(cast->ra);
+	cast->hy = 0;
+	cast->hx = 0;
+	cast->vy = 0;
+	cast->vx = 0;
 	if (cast->ra < PI)
 	{
 		cast->hy = (int)player->y * 64 / 64 - 1; 
@@ -228,14 +232,6 @@ void draw_rectangle(void *mlx_ptr, void *win_ptr, int x, int y, int width)
 	}
 }
 
-int valid_move(int x, int y, t_game *game) {
-    if (x < 0 || y < 0 || x >= game->width * 64 || y >= game->height * 64)
-        return 0;
-
-    if (game->line[(y / 64 * game->width) + x / 64] == '1')
-        return 0;
-    return 1;
-}
 
 void draw_map(t_game *game)
 {
@@ -257,6 +253,15 @@ void draw_map(t_game *game)
 	}
 }
 
+int valid_move(int x, int y, t_game *game) {
+    if (x < 0 || y < 0 || x >= game->width * 64 || y >= game->height * 64)
+        return 0;
+
+    if (game->line[((int)(y / 64) * game->width) + (int)(x / 64)] == '1')
+        return 0;
+    return 1;
+} 
+ 
 int key_press(int keycode, t_game *game) {
     int speed = 5;
     int tmpx = game->player->x;
@@ -276,17 +281,13 @@ int key_press(int keycode, t_game *game) {
 	}
     if (keycode == 2)
 	{
-		// if (game->player->angle <= 0)
-			// game->player->angle += 2 * PI;
         game->player->angle -= 0.1;
 		if (game->player->angle < 0)
 			game->player->angle += 2 * PI;
-		
 	}
     if (keycode == 0)
 	{
 		game->player->angle += 0.1;
-		
 		if (game->player->angle > 2 * PI)
 			game->player->angle -= 2 * PI;
 	}
