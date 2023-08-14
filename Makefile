@@ -11,7 +11,9 @@
 # **************************************************************************** #
 
 SRC		=	main.c map_check/map_check.c map_check/map_reader.c \
-			get_next_line/get_next_line.c 
+			get_next_line/get_next_line.c  \
+			utiles1.c   \
+			# key.c  \
 			
 
 CC		= cc

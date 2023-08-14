@@ -21,6 +21,19 @@
 #include "get_next_line/get_next_line.h"
 #include "MLX/mlx.h"
 
+#define PI 3.1415926535
+#define P2 PI/2
+#define P3 3 * PI/2
+#define P4 2 * PI
+
+#define DR 0.0174533
+
+# define ESC_KEY 53
+# define W_KEY 13
+# define A_KEY 0
+# define S_KEY 1
+# define D_KEY 2
+
 typedef struct s_cub
 {
 	int	maplines;
@@ -28,6 +41,38 @@ typedef struct s_cub
 	int	j;
 }	t_cub;
 
+typedef struct s_player {
+    int x;
+    int y;
+    double angle;
+
+} t_player;
+
+typedef struct s_image
+{
+	void	*avatar;
+	void	*wall;
+	void	*imt;
+}		t_img;
+
+typedef struct s_path
+{
+	char	*path_avatar;
+	char	*path_wall;
+	char	*path_imt;
+}	t_path;
+
+typedef struct s_game
+{
+	char	*line;
+	int		height;
+	int		width;
+	void	*mlx;
+	void	*win;
+	t_img	img;
+	t_path	path;
+	t_player *player;
+}		t_game;
 
 //map_check
 void	check_the_path(char **map, t_cub *cub);
@@ -39,5 +84,16 @@ int		exiter(void);
 //map_reader
 int		maplines(char *mapber);
 char	**mapreader(char *mapber);
+
+
+// void	move_a(t_game *game);
+// void	move_s(t_game *game);
+// void	move_d(t_game *game);
+// void	move_w(t_game *game);
+void	read_maps(t_game *game, char *map);
+void	setting_img(t_game *game);
+
+void	put_image(t_game *game);
+
 
 #endif
