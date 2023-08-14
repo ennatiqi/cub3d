@@ -34,6 +34,15 @@
 # define S_KEY 1
 # define D_KEY 2
 
+typedef struct s_casting
+{
+	float hx;
+	float hy;
+	float vx;
+	float vy;
+	float ra;
+}	t_casting;
+
 typedef struct s_cub
 {
 	int	maplines;
@@ -105,6 +114,8 @@ int FixAng(int a);
 float dist(float ax , float ay, float bx, float by, float ang);
 t_game	*insert_to_game(void);
 void	set_game(t_game *game, char *map);
+void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game);
+
 
 
 #endif

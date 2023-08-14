@@ -12,6 +12,101 @@
 
 #include "cub3d.h"
 
+void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game)
+{
+	float rx,ry,xo,yo;
+	int r, mx,my,mp;
+	float atan;
+
+	atan = 1/tan(cast->ra);
+	if (cast->ra < PI)
+	{
+		cast->hy = (int)player->y * 64 / 64 - 1; 
+		cast->hx = (player->y - cast->hy ) * atan + player->x; 
+		yo = -0.5; 
+		xo = -yo * atan;
+	}
+	if (cast->ra > PI) 
+	{
+		cast->hy = ((int)player->y * 64 / 64) + 64;
+		cast->hx = (player->y - cast->hy ) * atan + player->x; 
+		yo = 0.5; 
+		xo = -yo * atan;
+	}
+	if (cast->ra == 0 || cast->ra == (float)PI)
+	{
+		cast->hy = player->y;
+		cast->hx = player->x;
+	}
+	else
+	{
+		while (1)
+		{
+			mx = (int)(cast->hx) / 64;
+			my = (int)(cast->hy) / 64;
+			mp = my * game->width + mx;
+
+			if (mx >= 0 && mx < game->width && my >= 0 && my < game->height)
+			{
+				if (game->line[mp] == '1')
+					break;
+				else
+				{
+					cast->hx += xo;
+					cast->hy += yo;
+				}
+			}
+			else
+				break;
+		}
+    }
+	atan = tan(cast->ra);
+	if (cast->ra < P2 || cast->ra > P3)  
+	{
+		cast->vx = (int)player->x * 64 / 64 + 64; 
+		cast->vy = (player->x - cast->vx ) * atan + player->y; 
+		xo = 0.5; 
+		yo = -xo * atan;
+	}
+	if (cast->ra > P2 && cast->ra < P3) 
+	{
+		cast->vx = ((int)player->x * 64 / 64) - 1;
+		cast->vy = (player->x - cast->vx ) * atan + player->y; 
+		xo = -0.5; 
+		yo = -xo * atan;
+	}
+	if (cast->ra == P2 || cast->ra == P3)
+	{
+		cast->vx = player->x; 
+		cast->vy = player->y;
+	}
+	else
+	{
+		while (1)
+		{
+			mx = (int)(cast->vx) / 64;
+			my = (int)(cast->vy) / 64;
+			mp = my * game->width + mx;
+
+			if (mx >= 0 && mx < game->width && my >= 0 && my < game->height)
+			{
+				if (game->line[mp] == '1')
+				{
+					break;
+				}
+				else
+				{
+					cast->vx += xo;
+					cast->vy += yo;
+				}
+			}
+			else
+				break;
+
+		}
+	}
+}
+
 t_game	*insert_to_game(void)
 {
 	t_game	*game;
