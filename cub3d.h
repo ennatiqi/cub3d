@@ -94,6 +94,17 @@ void	read_maps(t_game *game, char *map);
 void	setting_img(t_game *game);
 
 void	put_image(t_game *game);
+int key_press(int keycode, t_game *game) ;
+int valid_move(int x, int y, t_game *game) ;
+void draw_map(t_game *game);
+void draw_rectangle(void *mlx_ptr, void *win_ptr, int x, int y, int width);
+
+void draw_line(void *mlx_ptr, void *win_ptr, int x1, int y1, int x2, int y2, int color) ;
+float degToRad(int a) ;
+int FixAng(int a);
+float dist(float ax , float ay, float bx, float by, float ang);
+t_game	*insert_to_game(void);
+void	set_game(t_game *game, char *map);
 
 
 #endif
