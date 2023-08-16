@@ -25,7 +25,8 @@
 #define P2 PI/2
 #define P3 3 * PI/2
 #define P4 2 * PI
-
+#define WIGHT 1024
+#define HEIGHT 512
 #define DR 0.0174533/8
 
 # define ESC_KEY 53

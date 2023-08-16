@@ -31,34 +31,44 @@ void draw_lines(void *mlx_ptr, void *win_ptr,t_player *player, t_game *game)
 
 	cast = malloc(sizeof(t_casting));
 
-	cast->ra = player->angle - DR *  game->width * 32;
+	cast->ra = player->angle - DR *  WIGHT/4;
 	if (cast->ra < 0)
 		cast->ra += 2 * PI;
 	if (cast->ra > 2 * PI)
 		cast->ra -= 2 * PI;
-	for (r = 0; r < game->width * 64 ;r++)
+	for (r = 0; r < WIGHT / 2 ;r++)
 	{
 		horizontal_vertical_lines(cast,player, game);
 		
 
         corrected_angle = player->angle - cast->ra;
-		if (dist(cast->hx, cast->hy, player->x, player->y, cast->ra) > dist(cast->vx, cast->vy, player->x, player->y, cast->ra))
+		
+		if (dist(cast->hx, cast->hy, player->x, player->y, cast->ra) >= dist(cast->vx, cast->vy, player->x, player->y, cast->ra))
 		{
-			color = 0xFF0 000;
-			draw_line(mlx_ptr, win_ptr, player->x + 2, player->y + 2, cast->vx, cast->vy, color);
+			if (cast->ra >= P3 || cast->ra < PI / 2)
+				color = 0xFF0000;
+			else if (cast->ra >= PI/2 && cast->ra < P3)
+				color = 0xFFACAC;
+			draw_line(mlx_ptr, win_ptr, player->x , player->y, cast->vx, cast->vy, color);
 			dist_to_wall = dist(cast->vx, cast->vy, player->x, player->y, cast->ra)* cos(corrected_angle);
 		}
 		else
 		{
-			color = 0xFF0000;
-			draw_line(mlx_ptr, win_ptr, player->x + 2, player->y + 2, cast->hx, cast->hy, color);
+			if (cast->ra >= 0 && cast->ra < PI)
+				color = 0xCC0000;
+			else if (cast->ra >= PI && cast->ra < 2 * PI)
+				color = 0xCCACAC;
+			draw_line(mlx_ptr, win_ptr, player->x, player->y, cast->hx, cast->hy, color);
 			dist_to_wall = dist(cast->hx, cast->hy, player->x, player->y, cast->ra) * cos(corrected_angle);
 		}
 
-		wall_height = ((64 * game->height) / dist_to_wall) * 32;
-		wall_start = (int)((64 * game->height - wall_height) / 2);
+		wall_height = ((HEIGHT) / dist_to_wall) * 32;
+		wall_start = (int)((HEIGHT - wall_height) / 2);
 		wall_end = wall_start + wall_height;
-    	draw_line(mlx_ptr, win_ptr, r + game->width * 64, wall_start, r + game->width* 64, wall_end, color);
+    	draw_line(mlx_ptr, win_ptr, r + WIGHT / 2 , 0, r+ WIGHT / 2, wall_start,0x00FF00 );
+		
+    	draw_line(mlx_ptr, win_ptr, r+ WIGHT / 2, wall_start, r+ WIGHT / 2, wall_end, color);
+    	draw_line(mlx_ptr, win_ptr, r+ WIGHT / 2, wall_end, r+ WIGHT / 2, HEIGHT, 0x0000FF);
 
 		
 		cast->ra+= DR; 
@@ -75,13 +85,10 @@ void draw_lines(void *mlx_ptr, void *win_ptr,t_player *player, t_game *game)
 
 
 
-void draw_player(t_game *game,t_player *player, void *mlx_ptr, void *win_ptr) {
-   
-
-    draw_rectangle(mlx_ptr, win_ptr, player->x, player->y, 8);
+void draw_player(t_game *game,t_player *player, void *mlx_ptr, void *win_ptr)
+{
+    draw_rectangle(mlx_ptr, win_ptr, player->x, player->y, 1);
 	draw_lines(mlx_ptr, win_ptr,player, game);
-
-    // draw_line(mlx_ptr, win_ptr, player->x + 2, player->y + 2, player->x + 52 * cos(player->angle), player->y - 52 * sin(player->angle), 0xFFFF66);
 }
 
 
@@ -122,7 +129,7 @@ int main(int ac, char **av)
 
 		draw_map(game);
         draw_player(game,game->player, game->mlx, game->win);
-
+ 
         mlx_do_sync(game->mlx);
     }
 	mlx_loop(game->mlx);

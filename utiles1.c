@@ -14,25 +14,22 @@
 
 void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game)
 {
-	float rx,ry,xo,yo;
-	int r, mx,my,mp;
+	float xo,yo;
+	int r, mx,my,mp, dof;
 	float atan;
 
+
 	atan = 1/tan(cast->ra);
-	cast->hy = 0;
-	cast->hx = 0;
-	cast->vy = 0;
-	cast->vx = 0;
 	if (cast->ra < PI)
 	{
-		cast->hy = (int)player->y * 64 / 64 - 1; 
+		cast->hy = ((int)(player->y * 64) / 64) - 0.0001; 
 		cast->hx = (player->y - cast->hy ) * atan + player->x; 
 		yo = -0.5; 
 		xo = -yo * atan;
 	}
-	if (cast->ra > PI) 
+	else if (cast->ra > PI) 
 	{
-		cast->hy = ((int)player->y * 64 / 64) + 64;
+		cast->hy = ((int)(player->y * 64) / 64) + 64;
 		cast->hx = (player->y - cast->hy ) * atan + player->x; 
 		yo = 0.5; 
 		xo = -yo * atan;
@@ -64,17 +61,18 @@ void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game)
 				break;
 		}
     }
+	
 	atan = tan(cast->ra);
 	if (cast->ra < P2 || cast->ra > P3)  
 	{
-		cast->vx = (int)player->x * 64 / 64 + 64; 
+		cast->vx = ((int)(player->x * 64) / 64) + 64; 
 		cast->vy = (player->x - cast->vx ) * atan + player->y; 
 		xo = 0.5; 
 		yo = -xo * atan;
 	}
-	if (cast->ra > P2 && cast->ra < P3) 
+	else if (cast->ra > P2 && cast->ra < P3) 
 	{
-		cast->vx = ((int)player->x * 64 / 64) - 1;
+		cast->vx = ((int)(player->x * 64) / 64) - 0.0001;
 		cast->vy = (player->x - cast->vx ) * atan + player->y; 
 		xo = -0.5; 
 		yo = -xo * atan;
@@ -95,9 +93,7 @@ void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game)
 			if (mx >= 0 && mx < game->width && my >= 0 && my < game->height)
 			{
 				if (game->line[mp] == '1')
-				{
 					break;
-				}
 				else
 				{
 					cast->vx += xo;
@@ -109,6 +105,8 @@ void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game)
 
 		}
 	}
+
+
 }
 
 t_game	*insert_to_game(void)
@@ -269,6 +267,8 @@ int key_press(int keycode, t_game *game) {
 
     if (keycode == 53)
         exit(0);
+
+
     if (keycode == 13)
     {
 		tmpy -= speed * cos(game->player->angle - P2);
@@ -279,13 +279,14 @@ int key_press(int keycode, t_game *game) {
         tmpy += speed * cos(game->player->angle - P2);
         tmpx -= speed * sin(game->player->angle + P2);
 	}
-    if (keycode == 2)
+
+    if (keycode == 0)
 	{
         game->player->angle -= 0.1;
 		if (game->player->angle < 0)
 			game->player->angle += 2 * PI;
 	}
-    if (keycode == 0)
+    if (keycode == 2)
 	{
 		game->player->angle += 0.1;
 		if (game->player->angle > 2 * PI)
