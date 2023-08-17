@@ -44,6 +44,39 @@ typedef struct s_casting
 	float ra;
 }	t_casting;
 
+
+typedef struct s_textures
+{
+	void	*no;
+	void	*so;
+	void	*we;
+	void	*ea;
+	void	*fl;
+	void	*ce;
+
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	char	*floor;
+	char	*ceiling;
+
+
+}	t_textures;
+
+typedef struct s_wall
+{
+	float dist_to_wall;
+	float wall_height;
+	int wall_start;
+	int wall_end;
+	float corrected_angle;
+
+	int diraction;
+	t_casting *cast;
+	
+}	t_wall;
+
 typedef struct s_cub
 {
 	int	maplines;
@@ -82,6 +115,7 @@ typedef struct s_game
 	t_img	img;
 	t_path	path;
 	t_player *player;
+	t_textures *textures;
 }		t_game;
 
 //map_check

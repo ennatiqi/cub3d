@@ -22,14 +22,14 @@ void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game)
 	atan = 1/tan(cast->ra);
 	if (cast->ra < PI)
 	{
-		cast->hy = ((int)(player->y * 64) / 64) - 0.0001; 
+		cast->hy = ((int)(player->y * 64) / 64); 
 		cast->hx = (player->y - cast->hy ) * atan + player->x; 
 		yo = -0.5; 
 		xo = -yo * atan;
 	}
 	else if (cast->ra > PI) 
 	{
-		cast->hy = ((int)(player->y * 64) / 64) + 64;
+		cast->hy = ((int)(player->y * 64) / 64);
 		cast->hx = (player->y - cast->hy ) * atan + player->x; 
 		yo = 0.5; 
 		xo = -yo * atan;
@@ -65,14 +65,14 @@ void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game)
 	atan = tan(cast->ra);
 	if (cast->ra < P2 || cast->ra > P3)  
 	{
-		cast->vx = ((int)(player->x * 64) / 64) + 64; 
+		cast->vx = ((int)(player->x * 64) / 64); 
 		cast->vy = (player->x - cast->vx ) * atan + player->y; 
 		xo = 0.5; 
 		yo = -xo * atan;
 	}
 	else if (cast->ra > P2 && cast->ra < P3) 
 	{
-		cast->vx = ((int)(player->x * 64) / 64) - 0.0001;
+		cast->vx = ((int)(player->x * 64) / 64);
 		cast->vy = (player->x - cast->vx ) * atan + player->y; 
 		xo = -0.5; 
 		yo = -xo * atan;
@@ -127,6 +127,20 @@ void	set_game(t_game *game, char *map)
 	read_maps(game, map);
 	game->win = mlx_new_window(game->mlx,1024, 512, "cub3d");
 	game->player = malloc(sizeof(t_player));
+
+
+	// hnaya atchaf path mn map odirha mohim
+int width;
+
+
+width = 64;
+	game->textures = malloc(sizeof(t_textures));
+
+	game->textures->no = mlx_xpm_file_to_image(game->mlx, "./textures/1.xpm", &width, &width);
+	game->textures->so = mlx_xpm_file_to_image(game->mlx, "./textures/2.xpm", &width, &width);
+	game->textures->ea = mlx_xpm_file_to_image(game->mlx, "./textures/3.xpm", &width, &width);
+	game->textures->we = mlx_xpm_file_to_image(game->mlx,"./textures/4.xpm", &width, &width);
+
 
 	// 7sab position dyalo
 	int		i;
@@ -259,6 +273,11 @@ int valid_move(int x, int y, t_game *game) {
         return 0;
     return 1;
 } 
+
+// int mouse_press(int mouse, t_game *game)
+// {
+
+// }
  
 int key_press(int keycode, t_game *game) {
     int speed = 5;
