@@ -22,16 +22,16 @@ void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game)
 	atan = 1/tan(cast->ra);
 	if (cast->ra < PI)
 	{
-		cast->hy = ((int)(player->y * 64) / 64); 
+		cast->hy = ((int)(player->y / 64) * 64) - 0.0001; 
 		cast->hx = (player->y - cast->hy ) * atan + player->x; 
-		yo = -0.5; 
+		yo = -64;
 		xo = -yo * atan;
 	}
-	else if (cast->ra > PI) 
+	else if (cast->ra > PI)  
 	{
-		cast->hy = ((int)(player->y * 64) / 64);
+		cast->hy = ((int)(player->y / 64) * 64) + 64;
 		cast->hx = (player->y - cast->hy ) * atan + player->x; 
-		yo = 0.5; 
+		yo = 64;
 		xo = -yo * atan;
 	}
 	if (cast->ra == 0 || cast->ra == (float)PI)
@@ -65,16 +65,16 @@ void horizontal_vertical_lines(t_casting *cast,t_player *player, t_game *game)
 	atan = tan(cast->ra);
 	if (cast->ra < P2 || cast->ra > P3)  
 	{
-		cast->vx = ((int)(player->x * 64) / 64); 
+		cast->vx = ((int)(player->x / 64) * 64) + 64; 
 		cast->vy = (player->x - cast->vx ) * atan + player->y; 
-		xo = 0.5; 
+		xo = 64; 
 		yo = -xo * atan;
 	}
 	else if (cast->ra > P2 && cast->ra < P3) 
 	{
-		cast->vx = ((int)(player->x * 64) / 64);
+		cast->vx = ((int)(player->x / 64) * 64)- 0.0001;
 		cast->vy = (player->x - cast->vx ) * atan + player->y; 
-		xo = -0.5; 
+		xo = -64; 
 		yo = -xo * atan;
 	}
 	if (cast->ra == P2 || cast->ra == P3)
@@ -290,13 +290,23 @@ int key_press(int keycode, t_game *game) {
 
     if (keycode == 13)
     {
-		tmpy -= speed * cos(game->player->angle - P2);
-        tmpx += speed * sin(game->player->angle + P2);
+		tmpy -= 2 * speed * cos(game->player->angle - P2);
+        tmpx += 2 * speed * sin(game->player->angle + P2);
+		if (valid_move(tmpx, tmpy, game))
+		{
+			game->player->x += speed * sin(game->player->angle + P2);
+			game->player->y -= speed * cos(game->player->angle - P2);
+		}
 	}
     if (keycode == 1)
 	{
-        tmpy += speed * cos(game->player->angle - P2);
-        tmpx -= speed * sin(game->player->angle + P2);
+        tmpy += 2 * speed * cos(game->player->angle - P2);
+        tmpx -= 2 * speed * sin(game->player->angle + P2);
+		if (valid_move(tmpx, tmpy, game))
+		{
+			game->player->x -= speed * sin(game->player->angle + P2);
+			game->player->y += speed * cos(game->player->angle - P2);
+		}
 	}
 
     if (keycode == 0)
@@ -312,11 +322,7 @@ int key_press(int keycode, t_game *game) {
 			game->player->angle -= 2 * PI;
 	}
 
-    if (valid_move(tmpx, tmpy, game))
-	{
-        game->player->x = tmpx;
-        game->player->y = tmpy;
-    }
+
 
     return 0;
 }

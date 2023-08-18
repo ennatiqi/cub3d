@@ -26,7 +26,7 @@ void draw_wall(void *mlx_ptr, void *win_ptr,void *img,int textures_offsetX,int t
 
 void draw_wall_textures(void *mlx_ptr, void *win_ptr, t_game *game,t_wall *wall,int r)
 {
-	draw_line(mlx_ptr, win_ptr, r + WIGHT / 2, 0, r+ WIGHT / 2, wall->wall_start,0x00FF00 );
+	draw_line(mlx_ptr, win_ptr, r + WIGHT / 2, 0, r+ WIGHT / 2, wall->wall_start,0x212121 );
 
 		int color;
 		int textures_offsetX;
@@ -52,7 +52,7 @@ void draw_wall_textures(void *mlx_ptr, void *win_ptr, t_game *game,t_wall *wall,
 
 	}
 
-    draw_line(mlx_ptr, win_ptr, r+ WIGHT / 2, wall->wall_end, r+ WIGHT / 2, HEIGHT, 0x0000FF);
+    draw_line(mlx_ptr, win_ptr, r+ WIGHT / 2, wall->wall_end, r+ WIGHT / 2, HEIGHT, 0x7D7D7D);
 
 
 }
@@ -90,7 +90,7 @@ void draw_lines(void *mlx_ptr, void *win_ptr,t_player *player, t_game *game)
 				wall->diraction = 1;
 			else if (cast->ra >= PI/2 && cast->ra < P3)
 				wall->diraction = 2;
-			draw_line(mlx_ptr, win_ptr, player->x , player->y, cast->vx, cast->vy, 0xCC0000);
+			draw_line(mlx_ptr, win_ptr, player->x , player->y, cast->vx, cast->vy, 0x00FF00);
 			wall->dist_to_wall = dist(cast->vx, cast->vy, player->x, player->y, cast->ra)* cos(wall->corrected_angle);
 		}
 		else
@@ -111,7 +111,7 @@ void draw_lines(void *mlx_ptr, void *win_ptr,t_player *player, t_game *game)
 		draw_wall_textures(mlx_ptr, win_ptr,game, wall, r);
 
 		
-		cast->ra+= DR; 
+		cast->ra+= DR;
 		if (cast->ra < 0)
 			cast->ra += 2 * PI;
 		if (cast->ra > 2 * PI)
