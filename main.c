@@ -155,7 +155,21 @@ void draw_rectangle(mlx_image_t* img, int x, int y, int width,int color)
 
 void ray_casting(t_game *game)
 {
-	
+	int n_wall;
+	//horizental
+	if (game->player->angle > 0 && game->player->angle < M_PI)
+	{
+		
+	}
+	else if (game->player->angle < (M_PI * 2) && game->player->angle > M_PI)
+	{
+		
+	}
+	else
+	{
+		
+	}
+
 }
 
 
