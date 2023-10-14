@@ -160,6 +160,9 @@ void ray_casting(t_game *game)
 	if (game->player->angle > 0 && game->player->angle < M_PI)
 	{
 		
+
+
+		
 	}
 	else if (game->player->angle < (M_PI * 2) && game->player->angle > M_PI)
 	{
