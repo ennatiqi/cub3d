@@ -71,36 +71,46 @@ int valide_move(int tmpy,int tmpx,t_game *game)
 	return 1;
 }
 
-void key_press(/* mlx_key_data_t keydata, */void *game2)
+void key_press(void *game2)
 {
 	t_game *game = (t_game *)game2;
-	int speed = 5;
-	int tmpx = game->player->x;
-	int tmpy = game->player->y;
+	int speed = 2;
+	float tmpx = game->player->x;
+	float tmpy = game->player->y;
 
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		game->player->angle -= 0.1;
+		game->player->angle -= 0.087266;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		game->player->angle += 0.1;
-	if (game->player->angle <= 0)
+		game->player->angle += 0.087266;
+	if (game->player->angle < 0)
 		game->player->angle += 2 * M_PI;
 	if (game->player->angle > 2 * M_PI)
 		game->player->angle -= 2 * M_PI;
 	
 
-	// if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-	// {
-	// 	game->player->y -= speed * sin(game->player->angle);
-	// 	game->player->x += speed * cos(game->player->angle);
-	// }
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+	{
+		tmpy += speed * sin(game->player->angle + M_PI / 2);
+		tmpx += speed * cos(game->player->angle + M_PI / 2);
+		if (valide_move(tmpy,tmpx,game))
+		{
+			game->player->x = tmpx;
+			game->player->y = tmpy;
+		}
+	}
 	
-	// if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-	// {
-	// 	game->player->y += speed * sin(game->player->angle);
-	// 	game->player->x -= speed * cos(game->player->angle);
-	// }
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+	{
+		tmpy -= speed * sin(game->player->angle + M_PI / 2);
+		tmpx -= speed * cos(game->player->angle + M_PI / 2);
+		if (valide_move(tmpy,tmpx,game))
+		{
+			game->player->x = tmpx;
+			game->player->y = tmpy;
+		}
+	}
 
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W) || mlx_is_key_down(game->mlx, MLX_KEY_UP))
 	{

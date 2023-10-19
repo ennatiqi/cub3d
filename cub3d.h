@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/18 08:36:07 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/10/19 10:42:28 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct s_cub
 
 typedef struct s_player
 {
-    int x;
-    int y;
+    float x;
+    float y;
     double angle;
 } t_player;
 
@@ -59,11 +59,11 @@ typedef struct s_wall
 {
 	float dist_to_wall;
 	float wall_height;
-	int wall_start;
-	int wall_end;
+	float wall_start;
+	float wall_end;
 	float corrected_angle;
 
-	int diraction;
+	float diraction;
 	
 }	t_wall;
 
