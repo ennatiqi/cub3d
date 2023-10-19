@@ -6,7 +6,7 @@
 #    By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 12:22:46 by aachfenn          #+#    #+#              #
-#    Updated: 2023/10/13 09:25:07 by rennatiq         ###   ########.fr        #
+#    Updated: 2023/10/18 08:35:52 by rennatiq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,11 @@ SRC		=	main.c \
 			get_next_line/get_next_line.c \
 			map_check/map_check.c \
 			map_check/map_reader.c \
+			ray_casting/ray_casting.c \
 
 CC		= cc
 
-CFLAGS	= #-fsanitize=address -g #-Wall -Werror -Wextra 
+CFLAGS	= -fsanitize=address -g -Wall -Werror -Wextra 
 
 OBJ		= ${SRC:.c=.o}
 

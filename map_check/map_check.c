@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:19:10 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/07/22 00:16:41 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:32:03 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	check_the_path_2(char **map, t_cub *cub)
 	j = 0;
 	i = 0;
 	check = 0;
+	(void)cub;
 	while (map[i])
 	{
 		j = 0;

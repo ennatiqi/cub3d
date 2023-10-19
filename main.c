@@ -3,12 +3,12 @@
 void draw_line(t_game *game, int x1, int y1, int x2, int y2, int color) 
 { 
 	int dx;
-    int dy;
+	int dy;
 	dx = abs(x2 - x1);
 	dy = abs(y2 - y1);
 	int err2;
-    int sign_x;
-    int sign_y;
+	int sign_x;
+	int sign_y;
 
 	if (x1 < x2)
 		sign_x = 1;
@@ -18,25 +18,26 @@ void draw_line(t_game *game, int x1, int y1, int x2, int y2, int color)
 		sign_y = 1;
 	else
 		sign_y = -1;
-    int err;
+	int err;
 	err = dx - dy;
 
-    mlx_put_pixel(game->img, x2, y2, color);
+	//mlx_put_pixel(game->img, x2, y2, color);
 
-    while (x1 != x2 || y1 != y2) {
-        mlx_put_pixel(game->img, x1, y1, color);
-        err2 = 2 * err;
+	while (x1 != x2 || y1 != y2) {
+		if ((x1 >= 0 && x1 <= WIGHT) && (y1 >= 0 && y1 <= HEIGHT))
+			mlx_put_pixel(game->img, x1, y1, color);
+		err2 = 2 * err;
 
-        if (err2 > -dy) {
-            err -= dy;
-            x1 += sign_x;
-        }
+		if (err2 > -dy) {
+			err -= dy;
+			x1 += sign_x;
+		}
 
-        if (err2 < dx) {
-            err += dx;
-            y1 += sign_y;
-        }
-    }
+		if (err2 < dx) {
+			err += dx;
+			y1 += sign_y;
+		}
+	}
 }
 
 void set_game(t_game  *game, char **av)
@@ -70,49 +71,39 @@ int valide_move(int tmpy,int tmpx,t_game *game)
 	return 1;
 }
 
-void key_press(mlx_key_data_t keydata,void *game2)
+void key_press(/* mlx_key_data_t keydata, */void *game2)
 {
 	t_game *game = (t_game *)game2;
 	int speed = 5;
 	int tmpx = game->player->x;
 	int tmpy = game->player->y;
 
-    if (keydata.key == MLX_KEY_ESCAPE)
-        exit(0);
-
-
-    if (keydata.key == MLX_KEY_RIGHT )
-	{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(game->mlx);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		game->player->angle -= 0.1;
-		if (game->player->angle <= 2 * M_PI)
-			game->player->angle += 2 * M_PI;
-	}
-	
-    
-    if (keydata.key == MLX_KEY_LEFT )
-	{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		game->player->angle += 0.1;
-		if (game->player->angle >= 2 * M_PI)
-			game->player->angle -= 2 * M_PI;
-
-	}
+	if (game->player->angle <= 0)
+		game->player->angle += 2 * M_PI;
+	if (game->player->angle > 2 * M_PI)
+		game->player->angle -= 2 * M_PI;
 	
 
-	// if (keydata.key == MLX_KEY_D )
+	// if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 	// {
 	// 	game->player->y -= speed * sin(game->player->angle);
 	// 	game->player->x += speed * cos(game->player->angle);
 	// }
 	
-    // if (keydata.key == MLX_KEY_A )
+	// if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 	// {
 	// 	game->player->y += speed * sin(game->player->angle);
 	// 	game->player->x -= speed * cos(game->player->angle);
 	// }
 
-    if (keydata.key == MLX_KEY_W )
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W) || mlx_is_key_down(game->mlx, MLX_KEY_UP))
 	{
-
 		tmpy +=  speed * sin(game->player->angle);
 		tmpx +=  speed * cos(game->player->angle);
 		if (valide_move(tmpy,tmpx,game))
@@ -122,7 +113,7 @@ void key_press(mlx_key_data_t keydata,void *game2)
 		}
 	}
 	
-    if (keydata.key == MLX_KEY_S )
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S) || mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 	{
 		tmpy -= speed * sin(game->player->angle);
 		tmpx -= speed * cos(game->player->angle);
@@ -138,7 +129,7 @@ void key_press(mlx_key_data_t keydata,void *game2)
 
 void draw_rectangle(mlx_image_t* img, int x, int y, int width,int color)
 {
-    int i = 0;
+	int i = 0;
 	int j ;
 
 	while (i < width)
@@ -153,58 +144,11 @@ void draw_rectangle(mlx_image_t* img, int x, int y, int width,int color)
 	}
 }
 
-void ray_casting(t_game *game)
-{
-	int n_wall;
-	//horizental
-	if (game->player->angle > 0 && game->player->angle < M_PI)
-	{
-		
 
-
-		
-	}
-	else if (game->player->angle < (M_PI * 2) && game->player->angle > M_PI)
-	{
-		
-	}
-	else
-	{
-		
-	}
-
-}
-
-
-
-void draw_map(void *game2)
+void draw(void *game2)
 {
 	t_game *game = (t_game *)game2;
-	int		i;
-	int		j;
 
-	i = 0;
-
-	while (i < game->height)
-	{
-		j = 0;
-		while (j < game->width)
-		{
-			if (game->maps[i][j] == '1')
-			{
-				draw_rectangle(game->img, j *64, i *64, 62,0xFFFFFF);
-			}
-			if (game->maps[i][j] == '0')
-			{
-				draw_rectangle(game->img, j *64, i *64, 64,0x000000);
-			}
-
-			j++;
-		}
-		i++;
-	}
-	draw_rectangle(game->img, game->player->x, game->player->y, 4,0xFFFFFFFF);
-	draw_line(game, game->player->x, game->player->y, game->player->x + cos(game->player->angle)* 40 , game->player->y + sin(game->player->angle)* 40 , 0xFF0000FF);
 	ray_casting(game);
 }
 
@@ -223,9 +167,10 @@ int main(int ac, char **av)
 		game->mlx = mlx_init(WIGHT, HEIGHT, "Cub3d", false);
 		game->img = mlx_new_image(game->mlx, WIGHT, HEIGHT);
 		mlx_image_to_window(game->mlx,game->img,0,0);
-		mlx_key_hook(game->mlx, &key_press, game);
+		// mlx_key_hook(game->mlx, &key_press, game);
 
-		mlx_loop_hook(game->mlx, draw_map, game);
+		mlx_loop_hook(game->mlx, key_press, game);
+		mlx_loop_hook(game->mlx, draw, game);
 
 		mlx_loop(game->mlx);
 		
