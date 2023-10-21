@@ -81,9 +81,9 @@ void key_press(void *game2)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		game->player->angle -= 0.087266;
+		game->player->angle -= 0.05;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		game->player->angle += 0.087266;
+		game->player->angle += 0.05;
 	if (game->player->angle < 0)
 		game->player->angle += 2 * M_PI;
 	if (game->player->angle > 2 * M_PI)
@@ -172,7 +172,7 @@ int main(int ac, char **av)
 	{
 		game = malloc(sizeof(t_game));
 		set_game(game, av);
-
+		init_images(game);
 
 		game->mlx = mlx_init(WIGHT, HEIGHT, "Cub3d", false);
 		game->img = mlx_new_image(game->mlx, WIGHT, HEIGHT);

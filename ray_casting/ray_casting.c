@@ -6,49 +6,13 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:35:37 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/18 13:54:53 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/10/21 07:55:07 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void draw_line2(t_game *game, int x1, int y1, int x2, int y2, int color) 
-{ 
-	int dx;
-	int dy;
-	dx = abs(x2 - x1);
-	dy = abs(y2 - y1);
-	int err2;
-	int sign_x;
-	int sign_y;
 
-	if (x1 < x2)
-		sign_x = 1;
-	else
-		sign_x = -1;
-	if (y1 < y2)
-		sign_y = 1;
-	else
-		sign_y = -1;
-	int err;
-	err = dx - dy;
-
-	while (x1 != x2 || y1 != y2) {
-		if ((x1 >= 0 && x1 <= WIGHT) && (y1 >= 0 && y1 <= HEIGHT))
-			mlx_put_pixel(game->img, x1, y1, color);
-		err2 = 2 * err;
-
-		if (err2 > -dy) {
-			err -= dy;
-			x1 += sign_x;
-		}
-
-		if (err2 < dx) {
-			err += dx;
-			y1 += sign_y;
-		}
-	}
-}
 
 void    horizental_casting(t_game *game, t_casting *cast)
 {
@@ -176,20 +140,6 @@ float	angle_correcter(float angle)
 	return (angle);
 }
 
-void	game_wall_printer(t_game *game, t_wall *wall, int i)
-{
-	if (game->cast->der == left)
-		draw_line2(game, i, wall->wall_start, i, wall->wall_end,0xFFFFFFFF);
-	else if (game->cast->der == right)
-		draw_line2(game, i, wall->wall_start, i, wall->wall_end,0xFFCCFFFF);
-	else if (game->cast->der == up)
-		draw_line2(game, i, wall->wall_start, i, wall->wall_end, 0xFFFF00FF);
-	else if (game->cast->der == down)
-		draw_line2(game, i, wall->wall_start, i, wall->wall_end, 0xFFCC00FF);
-
-	draw_line2(game, i , 0, i, wall->wall_start,0x0000000 );
-	draw_line2(game, i, wall->wall_end, i, HEIGHT, 0x00000000);
-}
 
 void ray_casting(t_game *game)
 {

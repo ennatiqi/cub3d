@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/19 10:42:28 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/10/21 03:26:51 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,23 @@ enum s_deraction{
 	down
 };
 
+typedef struct s_texture
+{
+	mlx_texture_t* Nimage;
+	mlx_texture_t* Wimage;
+	mlx_texture_t* Simage;
+	mlx_texture_t* Eimage;
+	int *Ncolors;
+	int *Wcolors;
+	int *Scolors;
+	int *Ecolors;
+	char* Wpath;
+	char* Npath;
+	char* Epath;
+	char* Spath;
+
+}	t_texture;
+
 typedef struct s_wall
 {
 	float dist_to_wall;
@@ -90,6 +107,7 @@ typedef struct s_game
     t_cub    *cub;
 	t_casting *cast;
 	t_wall *wall;
+	t_texture *texture;
 }		t_game;
 
 
@@ -106,5 +124,7 @@ char	**mapreader(char *mapber);
 
 // casting
 void ray_casting(t_game *game);
+void	game_wall_printer(t_game *game, t_wall *wall, int i);
+void    init_images(t_game *game);
 
 #endif
