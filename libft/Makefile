@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+         #
+#    By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 17:33:21 by aachfenn          #+#    #+#              #
-#    Updated: 2022/10/21 17:01:46 by aachfenn         ###   ########.fr        #
+#    Updated: 2023/10/13 08:13:08 by rennatiq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,15 @@ CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 
 %.o: %.c
-			${CC} ${CFLAGS} -c $< -o $@
+			@ ${CC} ${CFLAGS} -c $< -o $@
+			
 
 ${NAME}:	${OBJS}
 			ar -rc ${NAME} ${OBJS}
 			ranlib ${NAME}
+			@ ${RM} ${OBJS}
 
-all:		${NAME}
+all:		${NAME} 
 
 clean:
 			${RM} ${OBJS}
