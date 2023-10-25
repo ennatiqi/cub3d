@@ -32,7 +32,7 @@ NAME	= cub3D
 	
 ${NAME}	:	${OBJ} cub3d.h
 		make -C libft
-		${CC} ${CFLAGS} ${OBJ} libft/libft.a -o ${NAME} ./MLX42/build/libmlx42.a -I include -lglfw -L"/goinfre/aachfenn/homebrew/Cellar/glfw/3.3.8/lib" -framework Cocoa -framework OpenGL -framework IOKit
+		${CC} ${CFLAGS} ${OBJ} libft/libft.a -o ${NAME} ./MLX42/build/libmlx42.a -I include -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit
 
 all		: ${NAME}
 

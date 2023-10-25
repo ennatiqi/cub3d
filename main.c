@@ -14,94 +14,56 @@
 
 void set_game(t_game  *game, char **av)
 {
-	t_cub	cub;
+	t_cub	*cub;
 	char	**map;
 	
 	game->player = malloc (sizeof(t_player));
-	cub.check_tex = 0;
-	cub.NO = NULL;
-	cub.EA = NULL;
-	cub.SO = NULL;
-	cub.WE = NULL;
+	cub = malloc(sizeof(t_cub));
+	game->cub = cub;
+	cub->check_tex = 0;
+	cub->NO = NULL;
+	cub->EA = NULL;
+	cub->SO = NULL;
+	cub->WE = NULL;
 
 		name_check(av[1]);
-		cub.maplines = maplines(av[1]);
-		map = just_map(av[1], &cub);
-		check_the_path(map, &cub);
-		check_component(map, &cub);
-		check_the_path_2(map, &cub);
-		check_mid(map, &cub);
-		check_c_f(&cub);
-		if (cub.NO[0] == '\0' || cub.EA[0] == '\0' || cub.SO[0] == '\0' || cub.WE[0] == '\0')
+		cub->maplines = maplines(av[1]);
+		map = just_map(av[1], cub);
+		check_the_path(map, cub);
+		check_component(map, cub);
+		check_the_path_2(map, cub);
+		check_mid(map, cub);
+		check_c_f(cub);
+		if (cub->NO[0] == '\0' || cub->EA[0] == '\0' || cub->SO[0] == '\0' || cub->WE[0] == '\0')
 			error("ERROR IN TEX\n");
 
-		// printf("-->'%s'\n", cub.NO);
-		// printf("-->'%s'\n", cub.SO);
-		// printf("-->'%s'\n", cub.WE);
-		// printf("-->'%s'\n", cub.EA);
-		// printf("-->'%s'\n", cub.F);
-		// printf("-->'%s'\n", cub.C);
-		// printf("---<>%c\n", cub.start_p);
-		// printf("x == %d, Y == %d, lines = %d\n",cub.x, cub.y, cub.lines);
+		// printf("-->'%s'\n", cub->NO);
+		// printf("-->'%s'\n", cub->SO);
+		// printf("-->'%s'\n", cub->WE);
+		// printf("-->'%s'\n", cub->EA);
+		// printf("-->'%s'\n", cub->F);
+		// printf("-->'%s'\n", cub->C);
+		// printf("---<>%c\n", cub->start_p);
+		// printf("x == %d, Y == %d, lines = %d\n",cub->x, cub->y, cub->lines);
 		// int i = 0;
 		// while (i < 4)
-		// 	printf("cub->c_color ;%d;\n", cub.c_color[i++]);
+		// 	printf("cub->c_color ;%d;\n", cub->c_color[i++]);
 		// i = 0;
 		// while (i < 4)
-		// printf("cub->f_color ;%d;\n", cub.f_color[i++]);
+		// printf("cub->f_color ;%d;\n", cub->f_color[i++]);
 	game->maps = map;
-	game->height = cub.lines;
+	game->height = cub->lines;
 	game->width = width_calc(map);
-	game->player->x = (cub.x * 64);
-	game->player->y = (cub.y * 64);
-	if (cub.start_p == 'N')
+	game->player->x = (cub->x * 64);
+	game->player->y = (cub->y * 64);
+	if (cub->start_p == 'N')
 		game->player->angle = 3 * M_PI_2;
-	if (cub.start_p == 'S')
+	if (cub->start_p == 'S')
 		game->player->angle = M_PI_2;
-	if (cub.start_p == 'E')
+	if (cub->start_p == 'E')
 		game->player->angle = 0;
-	if (cub.start_p == 'W')
+	if (cub->start_p == 'W')
 		game->player->angle = M_PI;
-}
-
-void draw_line(t_game *game, int x1, int y1, int x2, int y2, int color) 
-{ 
-	int dx;
-	int dy;
-	dx = abs(x2 - x1);
-	dy = abs(y2 - y1);
-	int err2;
-	int sign_x;
-	int sign_y;
-
-	if (x1 < x2)
-		sign_x = 1;
-	else
-		sign_x = -1;
-	if (y1 < y2)
-		sign_y = 1;
-	else
-		sign_y = -1;
-	int err;
-	err = dx - dy;
-
-	//mlx_put_pixel(game->img, x2, y2, color);
-
-	while (x1 != x2 || y1 != y2) {
-		if ((x1 >= 0 && x1 <= WIGHT) && (y1 >= 0 && y1 <= HEIGHT))
-			mlx_put_pixel(game->img, x1, y1, color);
-		err2 = 2 * err;
-
-		if (err2 > -dy) {
-			err -= dy;
-			x1 += sign_x;
-		}
-
-		if (err2 < dx) {
-			err += dx;
-			y1 += sign_y;
-		}
-	}
 }
 
 int valide_move(int tmpy,int tmpx,t_game *game)

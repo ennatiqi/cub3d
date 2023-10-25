@@ -82,6 +82,9 @@ typedef struct s_texture
 	char* Epath;
 	char* Spath;
 
+	int Ccolor;
+	int Fcolor;
+
 }	t_texture;
 
 typedef struct s_wall
@@ -91,8 +94,6 @@ typedef struct s_wall
 	float wall_start;
 	float wall_end;
 	float corrected_angle;
-
-	float diraction;
 	
 }	t_wall;
 

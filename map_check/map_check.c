@@ -124,22 +124,6 @@ void	check_c_f(t_cub	*cub)
 	c_str = ft_split(cub->C, ',');
 	f_str = ft_split(cub->F, ',');
 	check_c_f_ext(cub, c_str, f_str);
-	// while (i < 3)
-	// {
-	// 	cub->c_color[i] = ft_toint_check(c_str[i]);
-	// 	if (cub->c_color[i] > 255 || cub->c_color[i] < 0)
-	// 		error("COLOR RANGE NOT RESPECTED\n");
-	// 	i++;
-	// }
-	// i = 0;
-	// while (i < 3) {
-	// 	cub->f_color[i] = ft_toint_check(f_str[i]);
-	// 	if (cub->f_color[i] > 255 || cub->f_color[i] < 0)
-	// 		error("COLOR RANGE NOT RESPECTED\n");
-	// 	i++;
-	// }
-	// cub->c_color[3] = 255;
-	// cub->f_color[3] = 255;
 	i = 0;
 	while (i < counter(cub->C, ','))
 		free(c_str[i++]);
