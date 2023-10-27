@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_images.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 02:39:14 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/21 09:45:57 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/10/27 08:09:52 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,23 @@ void    image_load(mlx_texture_t *image, int *color)
 void    init_images(t_game *game)
 {
     game->texture = malloc(sizeof(t_texture));
-    game->texture->Epath = "./textures/E.png";
-    game->texture->Npath = "./textures/N.png";
-    game->texture->Wpath = "./textures/W.png";
-    game->texture->Spath = "./textures/S.png";
+    game->texture->Epath = game->cub->EA;
+    game->texture->Npath = game->cub->NO;
+    game->texture->Wpath = game->cub->WE;
+    game->texture->Spath = game->cub->SO;
 
     game->texture->Eimage = mlx_load_png(game->texture->Epath);
+	if (!game->texture->Eimage)
+		error("NO SUCH TEXTURE\n");
     game->texture->Nimage = mlx_load_png(game->texture->Npath);
+	if (!game->texture->Nimage)
+		error("NO SUCH TEXTURE\n");
     game->texture->Wimage = mlx_load_png(game->texture->Wpath);
+	if (!game->texture->Wimage)
+		error("NO SUCH TEXTURE\n");
     game->texture->Simage = mlx_load_png(game->texture->Spath);
+	if (!game->texture->Simage)
+		error("NO SUCH TEXTURE\n");
 
     game->texture->Ccolor = get_rgba(game->cub->c_color[0],game->cub->c_color[1],game->cub->c_color[2],game->cub->c_color[3]);
     game->texture->Fcolor = get_rgba(game->cub->f_color[0],game->cub->f_color[1],game->cub->f_color[2],game->cub->f_color[3]);

@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/25 10:55:53 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/27 08:19:49 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void set_game(t_game  *game, char **av)
 	game->maps = map;
 	game->height = cub->lines;
 	game->width = width_calc(map);
-	game->player->x = (cub->x * 64);
-	game->player->y = (cub->y * 64);
+	game->player->x = (cub->x * 64) + 32;
+	game->player->y = (cub->y * 64) + 32;
 	if (cub->start_p == 'N')
 		game->player->angle = 3 * M_PI_2;
 	if (cub->start_p == 'S')

@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/25 10:48:02 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/27 08:00:55 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char	**just_map(char *mapber, t_cub *cub)
 	free(str);
 	if (cub->check_tex != 6)
 		error("INPUT ERROR (TEXTURES)\n");
-	cub->lines = lines = lines -  i - 3;
+	cub->lines = lines = lines - i - 3;
 	map = malloc((lines + 3) * sizeof(char *));
 	i = 0;
 	while (1)
@@ -149,9 +149,9 @@ char	**just_map(char *mapber, t_cub *cub)
 		i++;
 	}
 	close(fd);
-	i = 0;
-	while (map[i])
-		printf("%s", map[i++]);
+	// i = 0;
+	// while (map[i])
+	// 	printf("%s", map[i++]);
 	return (map);
 }
 

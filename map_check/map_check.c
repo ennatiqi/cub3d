@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:23 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/25 10:49:37 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/27 08:23:43 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,7 @@ int	ft_toint_check(char *str)
 	sign = 1;
 	while (str[i] == 32)
 		i++;
-	if (str[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	else if (str[i] == '+')
+	if (str[i + 1] && str[i] == '+')
 		i++;
 	res = ft_toint_check_ext(str, res, &i);
 	return (res * sign);
@@ -160,10 +155,10 @@ void	check_mid(char **map, t_cub	*cub)
 			if (map[i][j] == '0' && (map[i][j - 1] != '0' && \
 			map[i][j - 1] != '1' && map[i][j - 1] != cub->start_p))
 				error("NOT A VALID MAP (j - 1)\n");
-			if (i < (cub->lines - 1) && (map[i][j] == '0' || map[i][j] == cub->start_p) && (map[i + 1][j] == '\n' || !map[i + 1][j] || j > ft_strlen(map[i + 1])))
+			if (i < (cub->lines - 1) && (map[i][j] == '0' || map[i][j] == cub->start_p) && (map[i + 1][j] == 32 || map[i + 1][j] == '\n' || !map[i + 1][j] || j > ft_strlen(map[i + 1])))
 				error("NOT A VALID MAP (i + 1)\n");
 			if ((map[i][j] == '0' || map[i][j] == cub->start_p) && \
-			(map[i - 1][j] == '\n' || !map[i - 1][j] \
+			(map[i - 1][j] == 32 || map[i - 1][j] == '\n' || !map[i - 1][j] \
 			|| j > ft_strlen(map[i - 1])))
 				error("NOT A VALID MAP (i - 1)\n");
 			j++;
@@ -228,10 +223,15 @@ void	check_the_path(char **map, t_cub *cub)
 		i++;
 	}
 	i = 0;
+	
+	printf("cub->lines --> %d\n", cub->lines);
 	while (map[cub->lines - 1][i])
 	{
-		if (map[cub->lines - 1][i] == '0')
+		if (map[cub->lines][i] == '0')
+		{
+			printf("%d\n", i);
 			error("NOT A VALID MAP LAST LINE\n");
+		}
 		i++;
 	}
 }
