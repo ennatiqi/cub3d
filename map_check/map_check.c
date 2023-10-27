@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:23 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/27 08:23:43 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/27 09:08:09 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,10 +224,18 @@ void	check_the_path(char **map, t_cub *cub)
 	}
 	i = 0;
 	
-	printf("cub->lines --> %d\n", cub->lines);
-	while (map[cub->lines - 1][i])
+	int lines = 0;
+	while (map[i])
 	{
-		if (map[cub->lines][i] == '0')
+		if (map[i][0] == '\n')
+			break ;
+		i++;
+	}
+	lines = i;
+	i = 0;
+	while (map[lines - 1][i])
+	{
+		if (map[lines - 1][i] == '0')
 		{
 			printf("%d\n", i);
 			error("NOT A VALID MAP LAST LINE\n");

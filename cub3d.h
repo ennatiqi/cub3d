@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/25 10:48:14 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:18:55 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,8 @@ char	**just_map(char *mapber, t_cub *cub);
 int		maplines(char *mapber);
 char	**mapreader(char *mapber);
 int		width_calc(char **map);
-
+int		hight_calc(char **map);
+char	**buff_map(char **map, t_cub *cub);
 
 // casting
 void ray_casting(t_game *game);

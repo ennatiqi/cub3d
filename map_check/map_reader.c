@@ -6,11 +6,84 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/27 08:00:55 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/27 13:02:42 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+char **buff_map(char **map, t_cub *cub)
+{
+	int i;
+	char **new_map;
+	int width = width_calc(map) - 1;
+	char	*str;
+
+	i = 0;
+	str = malloc(width * sizeof(char));
+	while (map[i])
+	{
+		i++;
+	}
+	printf("---------->%d------%d\n", i, cub->lines);
+	i = 0;
+	while (i < width)
+		str[i++] = '1';
+	str[i] = '\n';
+	new_map = malloc((cub->lines + 3) * sizeof(char *));
+	i = 0;
+	while (i <= cub->lines)
+	{
+		new_map[i] = ft_strdup(str);
+		i++;
+	}
+	i = 0;
+	while (i <= cub->lines)
+	{
+		int j = 0;
+		while (map[i][j] != '\n')
+		{
+			new_map[i][j] = map[i][j];
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (new_map[i])
+		printf("%s", new_map[i++]);
+	return (new_map);
+}
+
+int	hight_calc(char **map)
+{
+	int i;
+	int len;
+
+	i = 0;
+	len = 0;
+	while (map[i])
+	{
+		len = i;
+		if (ft_strtrim(map[i], " ")[0] == '\n')
+		{
+			break ;
+			// i++;
+			// while (map[i] && ft_strtrim(map[i], " ")[0] == '\n')
+			// {
+			// 	printf("%d[%c]", i, ft_strtrim(map[i], " ")[0]);
+			// 	if (ft_strtrim(map[i], " ")[0] != '\n')
+			// 	{
+			// 		puts("====");
+			// 		len = i;
+			// 		break ;
+			// 	}
+			// 	i++;
+			// }
+		}
+		i++;
+	}
+	return(len);
+}
 
 int	width_calc(char **map)
 {
