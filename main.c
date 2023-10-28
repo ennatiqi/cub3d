@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/27 11:19:19 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/28 12:25:48 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,18 @@ void set_game(t_game  *game, char **av)
 		name_check(av[1]);
 		cub->maplines = maplines(av[1]);
 		map = just_map(av[1], cub);
-		char **buff = buff_map(map, cub);
-		int hh = hight_calc(map);
-		printf("--%d--\n", hh);
-		exit(0);
-		check_the_path(map, cub);
+		// char **buff = buff_map(map, cub);
+		// int hh = hight_calc(map);
+		// printf("--%d--\n", hh);
+		// exit(0);
+		
 		check_component(map, cub);
+		check_the_path(map, cub);
 		check_the_path_2(map, cub);
 		check_mid(map, cub);
 		check_c_f(cub);
 		if (cub->NO[0] == '\0' || cub->EA[0] == '\0' || cub->SO[0] == '\0' || cub->WE[0] == '\0')
 			error("ERROR IN TEX\n");
-
-		// printf("-->'%s'\n", cub->NO);
-		// printf("-->'%s'\n", cub->SO);
-		// printf("-->'%s'\n", cub->WE);
-		// printf("-->'%s'\n", cub->EA);
-		// printf("-->'%s'\n", cub->F);
-		// printf("-->'%s'\n", cub->C);
-		// printf("---<>%c\n", cub->start_p);
-		// printf("x == %d, Y == %d, lines = %d\n",cub->x, cub->y, cub->lines);
-		// int i = 0;
-		// while (i < 4)
-		// 	printf("cub->c_color ;%d;\n", cub->c_color[i++]);
-		// i = 0;
-		// while (i < 4)
-		// printf("cub->f_color ;%d;\n", cub->f_color[i++]);
 	game->maps = map;
 	game->height = cub->lines;
 	game->width = width_calc(map);
@@ -180,17 +166,17 @@ int main(int ac, char **av)
 	{
 		game = malloc(sizeof(t_game));
 		set_game(game, av);
-		init_images(game);
+		// init_images(game);
 
-		game->mlx = mlx_init(WIGHT, HEIGHT, "Cub3d", false);
-		game->img = mlx_new_image(game->mlx, WIGHT, HEIGHT);
-		mlx_image_to_window(game->mlx,game->img,0,0);
-		// mlx_key_hook(game->mlx, &key_press, game);
+		// game->mlx = mlx_init(WIGHT, HEIGHT, "Cub3d", false);
+		// game->img = mlx_new_image(game->mlx, WIGHT, HEIGHT);
+		// mlx_image_to_window(game->mlx,game->img,0,0);
+		// // mlx_key_hook(game->mlx, &key_press, game);
 
-		mlx_loop_hook(game->mlx, key_press, game);
-		mlx_loop_hook(game->mlx, draw, game);
+		// mlx_loop_hook(game->mlx, key_press, game);
+		// mlx_loop_hook(game->mlx, draw, game);
 
-		mlx_loop(game->mlx);
+		// mlx_loop(game->mlx);
 		
 	}
 	return (0);

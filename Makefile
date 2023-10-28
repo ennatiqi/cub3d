@@ -6,7 +6,7 @@
 #    By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 12:22:46 by aachfenn          #+#    #+#              #
-#    Updated: 2023/10/27 12:49:12 by aachfenn         ###   ########.fr        #
+#    Updated: 2023/10/28 12:24:23 by aachfenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC		=	main.c \
 
 CC		= cc
 
-CFLAGS	= #-fsanitize=address -g -Wall -Werror -Wextra 
+CFLAGS	=  -fsanitize=address -g -Wall -Werror -Wextra 
 
 OBJ		= ${SRC:.c=.o}
 

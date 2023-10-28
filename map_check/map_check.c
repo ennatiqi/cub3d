@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:23 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/27 09:08:09 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/28 12:31:43 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,22 +144,33 @@ void	check_mid(char **map, t_cub	*cub)
 	i = 1;
 	j = 0;
 	(void)cub;
+	printf("cub->lines = %d\n", cub->lines);
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
+			// printf("map[%d][%zu] == '%c'\n", i, j, map[i][j]);
 			if (map[i][j] == '0' && map[i][j + 1] != '0' && \
 			map[i][j + 1] != '1' && map[i][j + 1] != cub->start_p)
 				error("NOT A VALID MAP (j + 1)\n");
-			if (map[i][j] == '0' && (map[i][j - 1] != '0' && \
+			if (j > 0 && map[i][j] == '0' && (map[i][j - 1] != '0' && \
 			map[i][j - 1] != '1' && map[i][j - 1] != cub->start_p))
 				error("NOT A VALID MAP (j - 1)\n");
-			if (i < (cub->lines - 1) && (map[i][j] == '0' || map[i][j] == cub->start_p) && (map[i + 1][j] == 32 || map[i + 1][j] == '\n' || !map[i + 1][j] || j > ft_strlen(map[i + 1])))
-				error("NOT A VALID MAP (i + 1)\n");
-			if ((map[i][j] == '0' || map[i][j] == cub->start_p) && \
-			(map[i - 1][j] == 32 || map[i - 1][j] == '\n' || !map[i - 1][j] \
-			|| j > ft_strlen(map[i - 1])))
+			// if (i < (cub->lines - 1) && (map[i][j] == '0' || map[i][j] == cub->start_p) && \
+			// (map[i + 1][j] == 32 || map[i + 1][j] == '\n' || !map[i + 1][j] || j > ft_strlen(map[i + 1])))
+			// 	error("NOT A VALID MAP (i + 1)\n");
+			if ((map[i][j] == '0' || map[i][j] == cub->start_p))
+			{
+				if (i == cub->lines)
+					error("NOT A VALID MAP (i + 1)\n");
+				if (j > ft_strlen(map[i + 1]))
+					error("NOT A VALID MAP (i + 1)\n");
+				if (map[i + 1][j] == 32 || map[i + 1][j] == '\n')
+					error("NOT A VALID MAP (i + 1)\n");
+			}
+			if (i - 1 < (cub->lines) && (map[i][j] == '0' || map[i][j] == cub->start_p) && \
+			(map[i - 1][j] == 32 || map[i - 1][j] == '\n' || !map[i - 1][j] || j > ft_strlen(map[i - 1])))
 				error("NOT A VALID MAP (i - 1)\n");
 			j++;
 		}
@@ -208,39 +219,12 @@ void	check_the_path(char **map, t_cub *cub)
 	i = 0;
 	j = 0;
 	(void)cub;
+	(void)map;
 	while (map[0][j])
 	{
-		if (map[i][j] && (map[i][j] == '1' && map[i][j + 1] == '0'))
+		if (map[i][j] && (map[i][j] == '1' && (map[i][j + 1] == '0' || map[i][j + 1] == cub->start_p)))
 			error("NOT A VALID MAP FIRST LINE\n");
 		j++;
-	}
-	j = 0;
-	i = 1;
-	while (map[i])
-	{
-		if (map[i][ft_strlen(map[i])] && map[i][ft_strlen(map[i]) - 2] != '1')
-			error("NOT A VALID MAP LAST POSITION\n");
-		i++;
-	}
-	i = 0;
-	
-	int lines = 0;
-	while (map[i])
-	{
-		if (map[i][0] == '\n')
-			break ;
-		i++;
-	}
-	lines = i;
-	i = 0;
-	while (map[lines - 1][i])
-	{
-		if (map[lines - 1][i] == '0')
-		{
-			printf("%d\n", i);
-			error("NOT A VALID MAP LAST LINE\n");
-		}
-		i++;
 	}
 }
 
@@ -259,22 +243,22 @@ void	check_the_path_2(char **map, t_cub *cub)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] && map[i][0] == '0')
-				error("ERROR\n");
-			if (map[i][j + 1] && map[i][j] && map[i][j] == '0' \
-			&& map[i][j + 1] == 32)
-				error("ERROR\n");
-			if ((j - 1 >= 0) && map[i][j] && map[i][j] == '0' \
-			&& map[i][j - 1] == 32)
-				error("ERROR\n");
-			if ((i + 1 > cub->lines) && map[i][j] && map[i][j] == '0' \
-			&& map[i + 1][j] != '0' && map[i + 1][j] != '1' \
-			&& map[i + 1][j] != cub->start_p)
-				error("ERROR\n");
-			if ((i + 1 > 0) && map[i][j] && map[i][j] == '0' \
-			&& map[i - 1][j] != '0' && map[i - 1][j] != '1' \
-			&& map[i - 1][j] != cub->start_p)
-				error("ERROR\n");
+			// if (map[i][j] && map[i][0] == '0')
+			// 	error("ERROR\n");
+			// if (map[i][j + 1] && map[i][j] && map[i][j] == '0' \
+			// && (map[i][j + 1] == 32 || map[i][j + 1] == '\n'))
+			// 	error("ERROR\n");
+			// if ((j - 1 >= 0) && map[i][j] && map[i][j] == '0' \
+			// && map[i][j - 1] == 32)
+			// 	error("ERROR\n");
+			// if ((i + 1 > cub->lines) && map[i][j] && map[i][j] == '0' \
+			// && map[i + 1][j] != '0' && map[i + 1][j] != '1' \
+			// && map[i + 1][j] != cub->start_p)
+			// 	error("ERROR\n");
+			// if ((i + 1 > 0) && map[i][j] && map[i][j] == '0' \
+			// && map[i - 1][j] != '0' && map[i - 1][j] != '1' \
+			// && map[i - 1][j] != cub->start_p)
+			// 	error("ERROR\n");
 			j++;
 		}
 		i++;
