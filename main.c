@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/28 12:25:48 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/30 08:34:59 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ void set_game(t_game  *game, char **av)
 		name_check(av[1]);
 		cub->maplines = maplines(av[1]);
 		map = just_map(av[1], cub);
-		// char **buff = buff_map(map, cub);
+		char **buff = buff_map(map, cub);
+		(void)buff;
 		// int hh = hight_calc(map);
-		// printf("--%d--\n", hh);
-		// exit(0);
+		// printf("co--%d--\n", hh);
+		exit(0);
 		
 		check_component(map, cub);
 		check_the_path(map, cub);

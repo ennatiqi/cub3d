@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/27 13:02:42 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/30 08:33:46 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char **buff_map(char **map, t_cub *cub)
 	char	*str;
 
 	i = 0;
-	str = malloc(width * sizeof(char));
+	str = malloc((width + 1) * sizeof(char));
 	while (map[i])
 	{
 		i++;
@@ -38,19 +38,23 @@ char **buff_map(char **map, t_cub *cub)
 		i++;
 	}
 	i = 0;
+	printf("---------->%d------%d\n", i, cub->lines);
 	while (i <= cub->lines)
 	{
 		int j = 0;
-		while (map[i][j] != '\n')
+		while (map[i][j] && map[i][j] != '\n')
 		{
-			new_map[i][j] = map[i][j];
+			if (map[i][j] != 32)
+				new_map[i][j] = map[i][j];
 			j++;
 		}
 		i++;
 	}
 	i = 0;
-	while (new_map[i])
-		printf("%s", new_map[i++]);
+	while (i <= cub->lines) {
+		printf("%s", new_map[i]);
+		i++;
+	}
 	return (new_map);
 }
 
@@ -64,21 +68,25 @@ int	hight_calc(char **map)
 	while (map[i])
 	{
 		len = i;
-		if (ft_strtrim(map[i], " ")[0] == '\n')
+		printf("%d[%c] , %d\n", i, ft_strtrim(map[i], " ")[0], len);
+		if (map[i] && ft_strtrim(map[i], " ")[0] == '\n')
 		{
-			break ;
-			// i++;
-			// while (map[i] && ft_strtrim(map[i], " ")[0] == '\n')
-			// {
-			// 	printf("%d[%c]", i, ft_strtrim(map[i], " ")[0]);
-			// 	if (ft_strtrim(map[i], " ")[0] != '\n')
-			// 	{
-			// 		puts("====");
-			// 		len = i;
-			// 		break ;
-			// 	}
-			// 	i++;
-			// }
+			while (map[i] && ft_strtrim(map[i], " ")[0] == '\n')
+			{
+				printf("in ww%d[%c] , %d\n", i, ft_strtrim(map[i], " ")[0], len);
+				printf("====\n");
+				if (map[i] && ft_strtrim(map[i], " ")[0] != '\n')
+				{
+					puts("ls");
+					break ;
+				}
+				i++;
+			}
+			if (map[i] == NULL)
+			{
+				puts("cat");;
+				return (len);
+			}
 		}
 		i++;
 	}
