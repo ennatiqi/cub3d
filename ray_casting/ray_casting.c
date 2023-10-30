@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:35:37 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/30 10:07:36 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:38:12 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ void    wall_distans_calculater(t_game *game, t_casting *cast, t_wall *wall)
 		game->cast->dx = cast->hx;
 		game->cast->dy = cast->hy;
 		if (cast->ra >= 0 && cast->ra <= M_PI)
-			game->cast->der = down;
+			game->cast->der = south;
 		if (cast->ra < (M_PI * 2) && cast->ra > M_PI)
-			game->cast->der = up;
+			game->cast->der = north;
 		game->wall->dist_to_wall = distance_h * cos(wall->corrected_angle);
 	}
 	else
@@ -111,9 +111,9 @@ void    wall_distans_calculater(t_game *game, t_casting *cast, t_wall *wall)
 		game->cast->dx = cast->vx;
 		game->cast->dy = cast->vy;
 		if (cast->ra <= M_PI / 2 || cast->ra >= 3 * (M_PI / 2))
-			game->cast->der = right;
+			game->cast->der = east;
 		if (cast->ra > M_PI / 2 && cast->ra < 3 * (M_PI / 2))
-			game->cast->der = left;
+			game->cast->der = west;
 		game->wall->dist_to_wall = distance_v  * cos(wall->corrected_angle);
 		
 	}

@@ -6,11 +6,41 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/30 11:19:29 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/30 17:13:38 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_newline(char **map, t_cub *cub)
+{
+	int i;
+	int j;
+	char *tmp;
+
+	i = 0;
+	j = 0;
+	while (map[i])
+	{
+		tmp = ft_strtrim(map[i], " ");
+		// printf("tmp --> '%s'\n", tmp);
+		if (tmp[0] != '\n' && j > 0)
+			error("ERROR NEW_LINES AT THE END OF THE MAP\n");
+		if (tmp[0] == '\n')
+		{
+			j++;
+			while (i < cub->lines - 1)
+			{
+				// printf("map[%d] --> '%s'\n", i, map[i]);
+				tmp = ft_strtrim(map[i], " ");
+				if (tmp[0] != '\n')
+					error("ERROR NEW_LINES AT THE END OF THE MAP\n");
+				i++;
+			}
+		}
+		i++;
+	}
+}
 
 void set_game(t_game  *game, char **av)
 {
@@ -25,19 +55,23 @@ void set_game(t_game  *game, char **av)
 	cub->EA = NULL;
 	cub->SO = NULL;
 	cub->WE = NULL;
-
-		name_check(av[1]);
-		cub->maplines = maplines(av[1]);
-		map = just_map(av[1], cub);
-		char **buff = buff_map(map, cub);
-		
-		check_component(map, cub);
-		check_the_path(map, cub);
-		check_the_path_2(map, cub);
-		check_mid(map, cub);
-		check_c_f(cub);
-		if (cub->NO[0] == '\0' || cub->EA[0] == '\0' || cub->SO[0] == '\0' || cub->WE[0] == '\0')
-			error("ERROR IN TEX\n");
+	cub->C = NULL;
+	cub->F = NULL;
+	
+	name_check(av[1]);
+	cub->maplines = maplines(av[1]);
+	map = just_map(av[1], cub);
+	printf("%d\n", cub->lines);
+	check_newline(map, cub);
+	char **buff = buff_map(map, cub);
+	check_component(map, cub);
+	check_the_path(map, cub);
+	check_the_path_2(map, cub);
+	check_mid(map, cub);
+	check_c_f(cub);
+	if (cub->NO[0] == '\0' || cub->EA[0] == '\0' ||\
+	 cub->SO[0] == '\0' || cub->WE[0] == '\0')
+		error("ERROR IN TEX\n");
 	game->maps = buff;
 	game->height = cub->lines;
 	game->width = width_calc(map);
@@ -57,7 +91,9 @@ int valide_move(int tmpy,int tmpx,t_game *game)
 {
 	tmpy /= 64;
 	tmpx /= 64;
-	if ((game->maps[(int)game->player->y / 64][tmpx] == '1' && game->maps[tmpy][(int)game->player->x / 64] == '1') || game->maps[tmpy][tmpx] == '1')
+	if ((game->maps[(int)game->player->y / 64][tmpx] == '1' && \
+	game->maps[tmpy][(int)game->player->x / 64] == '1') ||\
+	 game->maps[tmpy][tmpx] == '1')
 		return 0;
 	return 1;
 }

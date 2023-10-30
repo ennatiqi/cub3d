@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/30 08:02:29 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:36:25 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ typedef struct s_player
 } t_player;
 
 enum s_deraction{
-	right,
-	left,
-	up,
-	down
+	east,
+	west,
+	north,
+	south,
 };
 
 typedef struct s_texture
@@ -141,10 +141,7 @@ char	**just_map(char *mapber, t_cub *cub);
 int		maplines(char *mapber);
 char	**mapreader(char *mapber);
 int		width_calc(char **map);
-int		hight_calc(char **map);
 char	**buff_map(char **map, t_cub *cub);
-int calculate_map_height(char **map);
-int	hight_calc(char **map);
 
 // casting
 void ray_casting(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/30 10:38:15 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:27:20 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,41 +49,6 @@ char **buff_map(char **map, t_cub *cub)
 		i++;
 	}
 	return (new_map);
-}
-
-int	hight_calc(char **map)
-{
-	int i;
-	int len;
-
-	i = 0;
-	len = 0;
-	while (map[i])
-	{
-		len = i;
-		printf("%d[%c] , %d\n", i, ft_strtrim(map[i], " ")[0], len);
-		if (map[i] && ft_strtrim(map[i], " ")[0] == '\n')
-		{
-			while (map[i] && ft_strtrim(map[i], " ")[0] == '\n')
-			{
-				printf("in ww%d[%c] , %d\n", i, ft_strtrim(map[i], " ")[0], len);
-				printf("====\n");
-				if (map[i] && ft_strtrim(map[i], " ")[0] != '\n')
-				{
-					puts("ls");
-					break ;
-				}
-				i++;
-			}
-			if (map[i] == NULL)
-			{
-				puts("cat");;
-				return (len);
-			}
-		}
-		i++;
-	}
-	return(len);
 }
 
 int	width_calc(char **map)
@@ -199,9 +164,10 @@ char	**just_map(char *mapber, t_cub *cub)
 	free(str);
 	if (cub->check_tex != 6)
 		error("INPUT ERROR (TEXTURES)\n");
-	cub->lines = lines = lines - i - 3;
+	lines = lines - i - 3;
 	map = malloc((lines + 3) * sizeof(char *));
 	i = 0;
+	int j = 0;
 	while (1)
 	{
 		tmp_1 = get_next_line(fd);
@@ -214,7 +180,10 @@ char	**just_map(char *mapber, t_cub *cub)
 			free(tmp);
 			break ;
 		}
+		j++;
 	}
+	// printf("lines --> %d, %d, %d\n", lines, i, cub->lines);
+	cub->lines = lines - j;
 	while (1)
 	{
 		map[i] = get_next_line(fd);
@@ -223,9 +192,6 @@ char	**just_map(char *mapber, t_cub *cub)
 		i++;
 	}
 	close(fd);
-	// i = 0;
-	// while (map[i])
-	// 	printf("%s", map[i++]);
 	return (map);
 }
 

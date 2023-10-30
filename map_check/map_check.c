@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:23 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/30 10:33:23 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/30 17:13:34 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void	check_c_f(t_cub	*cub)
 	char	**f_str;
 	int		i;
 
+	if (!cub->C || !cub->F)
+		error("ERROR IN THE COLOR\n");
 	comma_calcu(cub->C);
 	comma_calcu(cub->F);
 	if (counter(cub->C, ',') != 3 || counter(cub->F, ',') != 3)
@@ -143,23 +145,17 @@ void	check_mid(char **map, t_cub	*cub)
 
 	i = 1;
 	j = 0;
-	(void)cub;
-	printf("cub->lines = %d\n", cub->lines);
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			// printf("map[%d][%zu] == '%c'\n", i, j, map[i][j]);
 			if (map[i][j] == '0' && map[i][j + 1] != '0' && \
 			map[i][j + 1] != '1' && map[i][j + 1] != cub->start_p)
 				error("NOT A VALID MAP (j + 1)\n");
 			if (j > 0 && map[i][j] == '0' && (map[i][j - 1] != '0' && \
 			map[i][j - 1] != '1' && map[i][j - 1] != cub->start_p))
 				error("NOT A VALID MAP (j - 1)\n");
-			// if (i < (cub->lines - 1) && (map[i][j] == '0' || map[i][j] == cub->start_p) && \
-			// (map[i + 1][j] == 32 || map[i + 1][j] == '\n' || !map[i + 1][j] || j > ft_strlen(map[i + 1])))
-			// 	error("NOT A VALID MAP (i + 1)\n");
 			if ((map[i][j] == '0' || map[i][j] == cub->start_p))
 			{
 				if (i == cub->lines)
