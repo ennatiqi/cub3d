@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:35:37 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/21 07:55:07 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:07:36 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,6 @@ void	wall_calculater(t_game *game, t_casting *cast, t_wall *wall)
 	
 		
 	wall->wall_height = ((HEIGHT) / wall->dist_to_wall) * 32;
-	if (wall->wall_height > HEIGHT)
-		wall->wall_height = HEIGHT;
 	wall->wall_start = (int)((HEIGHT - wall->wall_height) / 2);
 	wall->wall_end = wall->wall_start + wall->wall_height;
 }

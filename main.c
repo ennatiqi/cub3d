@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/30 08:34:59 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:19:29 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ void set_game(t_game  *game, char **av)
 		cub->maplines = maplines(av[1]);
 		map = just_map(av[1], cub);
 		char **buff = buff_map(map, cub);
-		(void)buff;
-		// int hh = hight_calc(map);
-		// printf("co--%d--\n", hh);
-		exit(0);
 		
 		check_component(map, cub);
 		check_the_path(map, cub);
@@ -42,11 +38,11 @@ void set_game(t_game  *game, char **av)
 		check_c_f(cub);
 		if (cub->NO[0] == '\0' || cub->EA[0] == '\0' || cub->SO[0] == '\0' || cub->WE[0] == '\0')
 			error("ERROR IN TEX\n");
-	game->maps = map;
+	game->maps = buff;
 	game->height = cub->lines;
 	game->width = width_calc(map);
-	game->player->x = (cub->x * 64) + 32;
 	game->player->y = (cub->y * 64) + 32;
+	game->player->x = (cub->x * 64) + 32;
 	if (cub->start_p == 'N')
 		game->player->angle = 3 * M_PI_2;
 	if (cub->start_p == 'S')
@@ -61,7 +57,7 @@ int valide_move(int tmpy,int tmpx,t_game *game)
 {
 	tmpy /= 64;
 	tmpx /= 64;
-	if (game->maps[tmpy][tmpx] == '1')
+	if ((game->maps[(int)game->player->y / 64][tmpx] == '1' && game->maps[tmpy][(int)game->player->x / 64] == '1') || game->maps[tmpy][tmpx] == '1')
 		return 0;
 	return 1;
 }
@@ -167,17 +163,16 @@ int main(int ac, char **av)
 	{
 		game = malloc(sizeof(t_game));
 		set_game(game, av);
-		// init_images(game);
+		init_images(game);
 
-		// game->mlx = mlx_init(WIGHT, HEIGHT, "Cub3d", false);
-		// game->img = mlx_new_image(game->mlx, WIGHT, HEIGHT);
-		// mlx_image_to_window(game->mlx,game->img,0,0);
-		// // mlx_key_hook(game->mlx, &key_press, game);
+		game->mlx = mlx_init(WIGHT, HEIGHT, "Cub3d", false);
+		game->img = mlx_new_image(game->mlx, WIGHT, HEIGHT);
+		mlx_image_to_window(game->mlx,game->img,0,0);
 
-		// mlx_loop_hook(game->mlx, key_press, game);
-		// mlx_loop_hook(game->mlx, draw, game);
+		mlx_loop_hook(game->mlx, key_press, game);
+		mlx_loop_hook(game->mlx, draw, game);
 
-		// mlx_loop(game->mlx);
+		mlx_loop(game->mlx);
 		
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_macker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 03:25:30 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/21 09:49:03 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:24:29 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,44 +23,23 @@ void	game_wall_printer(t_game *game, t_wall *wall, int i)
 		x = (int)game->cast->dx % 64;
     while (++j < HEIGHT)
     {
-        // if (j >= wall->wall_start && j <= wall->wall_end)
-        // {
-        //     y = (int)((j - wall->wall_start) * (64.0 / wall->wall_height));
-        //     //  mlx_put_pixel(game->img, i, j, 0xFFFFFFF);
-
-        //     // mlx_put_pixel(game->img, i, j, game->texture->Ncolors[x + (y * game->texture->Nimage->width)]);
-        //     if (game->cast->der == left)
-        //     	mlx_put_pixel(game->img, i, j, game->texture->Ncolors[x + (y * game->texture->Nimage->width)]);
-        //     else if (game->cast->der == right)
-        //     	mlx_put_pixel(game->img, i, j, game->texture->Scolors[x + (y * game->texture->Nimage->width)]);
-        //     else if (game->cast->der == up)
-        //     	mlx_put_pixel(game->img, i, j, game->texture->Ecolors[x + (y * game->texture->Nimage->width)]);
-        //     else if (game->cast->der == down)
-        //     	mlx_put_pixel(game->img, i, j, game->texture->Wcolors[x + (y * game->texture->Nimage->width)]);
-        // }
-        if (j < wall->wall_start)
-        {
-             mlx_put_pixel(game->img, i, j, game->texture->Ccolor);
-        }
-        else if (j > wall->wall_end)
-        {
-             mlx_put_pixel(game->img, i, j, game->texture->Fcolor);
-        }
-        else
+        if (j > wall->wall_start && j < wall->wall_end)
         {
             y = (int)((j - wall->wall_start) * (64.0 / wall->wall_height));
-            //  mlx_put_pixel(game->img, i, j, 0xFFFFFFF);
 
-            // mlx_put_pixel(game->img, i, j, game->texture->Ncolors[x + (y * game->texture->Nimage->width)]);
             if (game->cast->der == left)
             	mlx_put_pixel(game->img, i, j, game->texture->Ncolors[x + (y * game->texture->Nimage->width)]);
             else if (game->cast->der == right)
-            	mlx_put_pixel(game->img, i, j, game->texture->Scolors[x + (y * game->texture->Nimage->width)]);
+            	mlx_put_pixel(game->img, i, j, game->texture->Scolors[x + (y * game->texture->Simage->width)]);
             else if (game->cast->der == up)
-            	mlx_put_pixel(game->img, i, j, game->texture->Ecolors[x + (y * game->texture->Nimage->width)]);
+            	mlx_put_pixel(game->img, i, j, game->texture->Ecolors[x + (y * game->texture->Eimage->width)]);
             else if (game->cast->der == down)
-            	mlx_put_pixel(game->img, i, j, game->texture->Wcolors[x + (y * game->texture->Nimage->width)]);
+            	mlx_put_pixel(game->img, i, j, game->texture->Wcolors[x + (y * game->texture->Wimage->width)]);
         }
+        if (j <= wall->wall_start)
+             mlx_put_pixel(game->img, i, j, game->texture->Ccolor);
+        else if (j >= wall->wall_end)
+             mlx_put_pixel(game->img, i, j, game->texture->Fcolor);
     }
 
 }

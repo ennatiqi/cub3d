@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:23 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/28 12:31:43 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:33:23 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,8 +196,8 @@ void	check_component(char **map, t_cub *cub)
 			|| map[i][j] == 'W')
 			{
 				cub->start_p = map[i][j];
-				cub->x = i;
-				cub->y = j;
+				cub->y = i;
+				cub->x = j;
 				check++;
 			}
 			if (map[i][j] != 32 && map[i][j] != '\n' && map[i][j] != '0' \

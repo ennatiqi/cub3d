@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/30 08:33:46 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:38:15 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,18 @@ char **buff_map(char **map, t_cub *cub)
 	{
 		i++;
 	}
-	printf("---------->%d------%d\n", i, cub->lines);
 	i = 0;
 	while (i < width)
 		str[i++] = '1';
-	str[i] = '\n';
+	str[i] = '\0';
 	new_map = malloc((cub->lines + 3) * sizeof(char *));
 	i = 0;
-	while (i <= cub->lines)
+	while (i <= cub->lines + 1)
 	{
 		new_map[i] = ft_strdup(str);
 		i++;
 	}
 	i = 0;
-	printf("---------->%d------%d\n", i, cub->lines);
 	while (i <= cub->lines)
 	{
 		int j = 0;
@@ -48,11 +46,6 @@ char **buff_map(char **map, t_cub *cub)
 				new_map[i][j] = map[i][j];
 			j++;
 		}
-		i++;
-	}
-	i = 0;
-	while (i <= cub->lines) {
-		printf("%s", new_map[i]);
 		i++;
 	}
 	return (new_map);
