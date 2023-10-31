@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/30 17:13:38 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/31 08:51:33 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,68 +23,78 @@ void	check_newline(char **map, t_cub *cub)
 	while (map[i])
 	{
 		tmp = ft_strtrim(map[i], " ");
-		// printf("tmp --> '%s'\n", tmp);
 		if (tmp[0] != '\n' && j > 0)
+		{
+			free(tmp);
 			error("ERROR NEW_LINES AT THE END OF THE MAP\n");
+		}
 		if (tmp[0] == '\n')
 		{
 			j++;
 			while (i < cub->lines - 1)
 			{
-				// printf("map[%d] --> '%s'\n", i, map[i]);
 				tmp = ft_strtrim(map[i], " ");
-				if (tmp[0] != '\n')
+				if (tmp[0] != '\n') 
+				{
+					free(tmp);
 					error("ERROR NEW_LINES AT THE END OF THE MAP\n");
+				}
+				free(tmp);
 				i++;
 			}
 		}
+		free(tmp);
 		i++;
 	}
 }
 
 void set_game(t_game  *game, char **av)
 {
-	t_cub	*cub;
+	// t_cub	*cub;
 	char	**map;
 	
-	game->player = malloc (sizeof(t_player));
-	cub = malloc(sizeof(t_cub));
-	game->cub = cub;
-	cub->check_tex = 0;
-	cub->NO = NULL;
-	cub->EA = NULL;
-	cub->SO = NULL;
-	cub->WE = NULL;
-	cub->C = NULL;
-	cub->F = NULL;
+	// game->player = malloc (sizeof(t_player));
+	// cub = malloc(sizeof(t_cub));
+	// game->cub = cub;
+	game->cub->check_tex = 0;
+	game->cub->NO = NULL;
+	game->cub->EA = NULL;
+	game->cub->SO = NULL;
+	game->cub->WE = NULL;
+	game->cub->C = NULL;
+	game->cub->F = NULL;
 	
 	name_check(av[1]);
-	cub->maplines = maplines(av[1]);
-	map = just_map(av[1], cub);
-	printf("%d\n", cub->lines);
-	check_newline(map, cub);
-	char **buff = buff_map(map, cub);
-	check_component(map, cub);
-	check_the_path(map, cub);
-	check_the_path_2(map, cub);
-	check_mid(map, cub);
-	check_c_f(cub);
-	if (cub->NO[0] == '\0' || cub->EA[0] == '\0' ||\
-	 cub->SO[0] == '\0' || cub->WE[0] == '\0')
+	game->cub->maplines = maplines(av[1]);
+	map = just_map(av[1], game->cub);
+	// printf("%d\n", game->cub->lines);
+	check_newline(map, game->cub);
+	char **buff = buff_map(map, game->cub);
+	check_component(map, game->cub);
+	check_the_path(map, game->cub);
+	check_the_path_2(map, game->cub);
+	check_mid(map, game->cub);
+	check_c_f(game->cub);
+	if (game->cub->NO[0] == '\0' || game->cub->EA[0] == '\0' ||\
+	 game->cub->SO[0] == '\0' || game->cub->WE[0] == '\0')
 		error("ERROR IN TEX\n");
 	game->maps = buff;
-	game->height = cub->lines;
+	game->height = game->cub->lines;
 	game->width = width_calc(map);
-	game->player->y = (cub->y * 64) + 32;
-	game->player->x = (cub->x * 64) + 32;
-	if (cub->start_p == 'N')
+	game->player->y = (game->cub->y * 64) + 32;
+	game->player->x = (game->cub->x * 64) + 32;
+	if (game->cub->start_p == 'N')
 		game->player->angle = 3 * M_PI_2;
-	if (cub->start_p == 'S')
+	if (game->cub->start_p == 'S')
 		game->player->angle = M_PI_2;
-	if (cub->start_p == 'E')
+	if (game->cub->start_p == 'E')
 		game->player->angle = 0;
-	if (cub->start_p == 'W')
+	if (game->cub->start_p == 'W')
 		game->player->angle = M_PI;
+	int i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);
 }
 
 int valide_move(int tmpy,int tmpx,t_game *game)
@@ -198,6 +208,10 @@ int main(int ac, char **av)
 	if (ac == 2)
 	{
 		game = malloc(sizeof(t_game));
+		game->player = malloc (sizeof(t_player));
+		game->cub = malloc(sizeof(t_cub));
+		game->cast = malloc(sizeof(t_casting));
+		game->wall = malloc(sizeof(t_wall));
 		set_game(game, av);
 		init_images(game);
 
@@ -207,9 +221,8 @@ int main(int ac, char **av)
 
 		mlx_loop_hook(game->mlx, key_press, game);
 		mlx_loop_hook(game->mlx, draw, game);
-
-		mlx_loop(game->mlx);
 		
+		mlx_loop(game->mlx);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:35:37 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/30 11:38:12 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/31 08:38:59 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,35 +141,35 @@ float	angle_correcter(float angle)
 
 void ray_casting(t_game *game)
 {
-	t_casting *cast;
 	float angle_br;
-	t_wall *wall;
 
 	angle_br = (FOV * M_PI / 180) / WIGHT;
-	cast = malloc(sizeof(t_casting));
-	wall = malloc(sizeof(t_wall));
-
-	game->cast = cast;
-	game->wall = wall;
-	cast->ra = game->player->angle - (FOV * M_PI / 180) / 2;
-	cast->ra = angle_correcter(cast->ra);
+	// cast = malloc(sizeof(t_casting));
+	// wall = malloc(sizeof(t_wall));
+	// game->cast = cast;
+	// game->wall = wall;
+	game->cast->ra = game->player->angle - (FOV * M_PI / 180) / 2;
+	game->cast->ra = angle_correcter(game->cast->ra);
 
 	int i = -1;
 	while(++i < WIGHT)
 	{
 		
-		horizental_casting(game, cast);
+		horizental_casting(game, game->cast);
 		
-		vertical_casting(game, cast);
+		vertical_casting(game, game->cast);
 	
-		wall_distans_calculater(game, cast, wall);
+		wall_distans_calculater(game, game->cast, game->wall);
 		
-		wall_calculater(game, cast, wall);
+		wall_calculater(game, game->cast, game->wall);
 
-		game_wall_printer(game, wall, i);
+		game_wall_printer(game, game->wall, i);
 
 		
-		cast->ra+= angle_br;
-		cast->ra = angle_correcter(cast->ra);
+		game->cast->ra+= angle_br;
+		game->cast->ra = angle_correcter(game->cast->ra);
 	}
+	//to check if this free won't cause any problem
+	// free(cast);
+	// free(wall);
 }

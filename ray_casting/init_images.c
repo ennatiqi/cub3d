@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 02:39:14 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/27 08:09:52 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/31 08:50:48 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ void    image_load(mlx_texture_t *image, int *color)
     
 }
 
+void error_image(char *str)
+{
+	while (*str)
+		write(2, str++, 1);
+	
+	exit (1);
+}
+
 void    init_images(t_game *game)
 {
     game->texture = malloc(sizeof(t_texture));
@@ -39,16 +47,19 @@ void    init_images(t_game *game)
 
     game->texture->Eimage = mlx_load_png(game->texture->Epath);
 	if (!game->texture->Eimage)
-		error("NO SUCH TEXTURE\n");
+		error_image("NO SUCH TEXTURE\n");
     game->texture->Nimage = mlx_load_png(game->texture->Npath);
 	if (!game->texture->Nimage)
-		error("NO SUCH TEXTURE\n");
+		error_image("NO SUCH TEXTURE\n");
     game->texture->Wimage = mlx_load_png(game->texture->Wpath);
 	if (!game->texture->Wimage)
-		error("NO SUCH TEXTURE\n");
+		error_image("NO SUCH TEXTURE\n");
     game->texture->Simage = mlx_load_png(game->texture->Spath);
 	if (!game->texture->Simage)
-		error("NO SUCH TEXTURE\n");
+		error_image("NO SUCH TEXTURE\n");
+
+	if (game->texture->Simage->width != 64 && game->texture->Simage->height != 64)
+		error_image("TEXTURE SIZE MUST BE 64x64\n");
 
     game->texture->Ccolor = get_rgba(game->cub->c_color[0],game->cub->c_color[1],game->cub->c_color[2],game->cub->c_color[3]);
     game->texture->Fcolor = get_rgba(game->cub->f_color[0],game->cub->f_color[1],game->cub->f_color[2],game->cub->f_color[3]);

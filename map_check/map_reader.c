@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/30 16:27:20 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/10/31 08:14:33 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 
 char **buff_map(char **map, t_cub *cub)
 {
-	int i;
-	char **new_map;
-	int width = width_calc(map) - 1;
+	int		i;
+	char	**new_map;
+	int		width = width_calc(map) - 1;
 	char	*str;
 
 	i = 0;
 	str = malloc((width + 1) * sizeof(char));
-	while (map[i])
-	{
-		i++;
-	}
 	i = 0;
 	while (i < width)
 		str[i++] = '1';
@@ -36,6 +32,7 @@ char **buff_map(char **map, t_cub *cub)
 		new_map[i] = ft_strdup(str);
 		i++;
 	}
+	free(str);
 	i = 0;
 	while (i <= cub->lines)
 	{
@@ -90,43 +87,58 @@ int	maplines(char *mapber)
 int	check_for_map(char *s, t_cub *cub)
 {
 	char	*str;
+	char	*sub;
 
 	str = ft_strtrim(s, " ");
 	if (str[0] == 'N' && str[1] == 'O' && (str[2] == 32))
 	{
-		cub->NO = ft_strtrim(ft_substr(str, 2, ft_strlen(str)), " \n");
+		sub = ft_substr(str, 2, ft_strlen(str));
+		cub->NO = ft_strtrim(sub, " \n");
+		free(sub);
 		cub->check_tex++;
 	}
 	else if (str[0] == 'S' && str[1] == 'O' && (str[2] == 32))
 	{
-		cub->SO = ft_strtrim(ft_substr(str, 2, ft_strlen(str)), " \n");
+		sub = ft_substr(str, 2, ft_strlen(str));
+		cub->SO = ft_strtrim(sub, " \n");
+		free(sub);
 		cub->check_tex++;
 	}
 	else if (str[0] == 'W' && str[1] == 'E' && (str[2] == 32))
 	{
-		cub->WE = ft_strtrim(ft_substr(str, 2, ft_strlen(str)), " \n");
+		sub = ft_substr(str, 2, ft_strlen(str));
+		cub->WE = ft_strtrim(sub, " \n");
+		free(sub);
 		cub->check_tex++;
 	}
 	else if (str[0] == 'E' && str[1] == 'A' && (str[2] == 32))
 	{
-		cub->EA = ft_strtrim(ft_substr(str, 2, ft_strlen(str)), " \n");
+		sub = ft_substr(str, 2, ft_strlen(str));
+		cub->EA = ft_strtrim(sub, " \n");
+		free(sub);
 		cub->check_tex++;
 	}
 	else if (str[0] == 'F' && str[1] == 32)
 	{
-		cub->F = ft_strtrim(ft_substr(str, 1, ft_strlen(str)), " \n");
+		sub = ft_substr(str, 1, ft_strlen(str));
+		cub->F = ft_strtrim(sub, " \n");
+		free(sub);
 		cub->check_tex++;
 	}
 	else if (str[0] == 'C' && str[1] == 32)
 	{
-		cub->C = ft_strtrim(ft_substr(str, 1, ft_strlen(str)), " \n");
+		sub = ft_substr(str, 1, ft_strlen(str));
+		cub->C = ft_strtrim(sub, " \n");
+		free(sub);
 		cub->check_tex++;
 	}
 	else if (ft_isalnum(str[0]))
 	{
 		error("UNKNOWN ASSET\n");
+		free(str);
 		exit(0);
 	}
+	free(str);
 	if (cub->check_tex == 6)
 		return (0);
 	return (1);
@@ -173,16 +185,21 @@ char	**just_map(char *mapber, t_cub *cub)
 		tmp_1 = get_next_line(fd);
 		tmp = ft_strtrim(tmp_1, " ");
 		if (tmp == NULL)
+		{
+			free(tmp_1);
+			free(tmp);
 			error("ERROR ON THE INPUT AFTER TEXTURES\n");
+		}
 		if (tmp[0] != '\n')
 		{
 			map[i++] = tmp_1;
 			free(tmp);
 			break ;
 		}
+		free(tmp_1);
+		free(tmp);
 		j++;
 	}
-	// printf("lines --> %d, %d, %d\n", lines, i, cub->lines);
 	cub->lines = lines - j;
 	while (1)
 	{
