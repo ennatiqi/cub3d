@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/01 14:24:45 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 15:39:21 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,14 +142,14 @@ void	comma_calcu(char *str, t_game *game);
 
 //check_textures
 int		check_for_map(char *s, t_cub *cub, t_game *game);
-void	NO(char *str, t_game *game);
-void	SO(char *str, t_game *game);
-void	WE(char *str, t_game *game);
-void	EA(char *str, t_game *game);
+void	no(char *str, t_game *game);
+void	so(char *str, t_game *game);
+void	we(char *str, t_game *game);
+void	ea(char *str, t_game *game);
 
 //check_textures_ext
-void	F(char *str, t_game *game);
-void	C(char *str, t_game *game);
+void	f(char *str, t_game *game);
+void	c(char *str, t_game *game);
 
 //map_reader
 char	**just_map(char *mapber, t_cub *cub, t_game *game);
@@ -157,6 +157,12 @@ int		maplines(char *mapber);
 int		width_calc(char **map);
 char	**buff_map(char **map, t_cub *cub);
 void	buff_map_ext(char **map, char **new_map, t_cub *cub);
+
+//to_free
+void	to_free(t_game	*game);
+void	free_cub(t_game *game);
+void	free_map(char **map);
+void	free_textures(t_game *game);
 
 // casting
 void	ray_casting(t_game *game);

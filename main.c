@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 14:14:16 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 15:45:11 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@ void	initializer(t_game *game)
 	game->texture->Epath = NULL;
 	game->texture->Wpath = NULL;
 	game->texture->Spath = NULL;
+	game->texture->Nimage = NULL;
+	game->texture->Eimage = NULL;
+	game->texture->Wimage = NULL;
+	game->texture->Simage = NULL;
+	game->img = NULL;
+	game->maps = NULL;
 }
 
-void direction_seter(t_game *game)
+void	direction_seter(t_game *game)
 {
 	if (game->cub->start_p == 'N')
 		game->player->angle = 3 * M_PI_2;
@@ -45,17 +51,7 @@ void direction_seter(t_game *game)
 		game->player->angle = M_PI;
 }
 
-void	free_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-		free(map[i++]);
-	free(map);
-}
-
-void set_game(t_game  *game, char **av)
+void	set_game(t_game *game, char **av)
 {
 	char	**map;
 	char	**buff;
@@ -94,13 +90,20 @@ int	valide_move(int tmpy, int tmpx, t_game *game)
 
 void	key_press(void *game2)
 {
-	t_game	*game = (t_game *)game2;
-	int		speed = 2;
-	float	tmpx = game->player->x;
-	float	tmpy = game->player->y;
+	t_game	*game;
+	int		speed;
+	float	tmpx;
+	float	tmpy;
 
+	game = (t_game *)game2;
+	tmpx = game->player->x;
+	tmpy = game->player->y;
+	speed = 2;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+	{
+		// to_free(game);
 		mlx_close_window(game->mlx);
+	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		game->player->angle -= 0.05;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
@@ -129,17 +132,19 @@ void	key_press(void *game2)
 			game->player->y = tmpy;
 		}
 	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W) || mlx_is_key_down(game->mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W) || \
+	mlx_is_key_down(game->mlx, MLX_KEY_UP))
 	{
-		tmpy +=  speed * sin(game->player->angle);
-		tmpx +=  speed * cos(game->player->angle);
-		if (valide_move(tmpy,tmpx,game))
+		tmpy += speed * sin(game->player->angle);
+		tmpx += speed * cos(game->player->angle);
+		if (valide_move(tmpy, tmpx, game))
 		{
 			game->player->x = tmpx;
 			game->player->y = tmpy;
 		}
 	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S) || mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S) || \
+	mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 	{
 		tmpy -= speed * sin(game->player->angle);
 		tmpx -= speed * cos(game->player->angle);
@@ -151,7 +156,7 @@ void	key_press(void *game2)
 	}
 }
 
-void draw_rectangle(mlx_image_t* img, int x, int y, int width,int color)
+void	draw_rectangle(mlx_image_t* img, int x, int y, int width,int color)
 {
 	int	i;
 	int	j;
@@ -169,88 +174,12 @@ void draw_rectangle(mlx_image_t* img, int x, int y, int width,int color)
 	}
 }
 
-void draw(void *game2)
+void	draw(void *game2)
 {
-	t_game	*game = (t_game *)game2;
+	t_game	*game;
 
+	game = (t_game *)game2;
 	ray_casting(game);
-}
-
-void	to_free(t_game	*game)
-{
-	if (game)
-	{
-		if (game->cub)
-		{
-			if (game->cub->NO)
-				free(game->cub->NO);
-			if (game->cub->EA)
-				free(game->cub->EA);
-			if (game->cub->SO)
-				free(game->cub->SO);
-			if (game->cub->WE)
-				free(game->cub->WE);
-			if (game->cub->C)
-				free(game->cub->C);
-			if (game->cub->F)
-				free(game->cub->F);
-			if (game->cub->c_color)
-				free(game->cub->c_color);
-			if (game->cub->f_color)
-				free(game->cub->f_color);
-			if (game->cub)
-				free(game->cub);
-		}
-		if (game->player)
-			free(game->player);
-		if (game->cast)
-			free(game->cast);
-		if (game->wall)
-			free(game->wall);
-
-	if (game->texture)
-	{
-		// if (game->texture->Nimage)
-		// 	mlx_delete_texture(game->texture->Nimage);
-		// if (game->texture->Wimage)
-		// 	mlx_delete_texture(game->texture->Wimage);
-		// if (game->texture->Simage)
-		// 	mlx_delete_texture(game->texture->Simage);
-		// if (game->texture->Eimage)
-		// 	mlx_delete_texture(game->texture->Eimage);
-
-		if (game->texture->Ncolors)
-			free(game->texture->Ncolors);
-		if (game->texture->Ecolors)
-			free(game->texture->Ecolors);
-		if (game->texture->Wcolors)
-			free(game->texture->Wcolors);
-		if (game->texture->Scolors)
-			free(game->texture->Scolors);
-		if (game->texture->Npath)
-			free(game->texture->Npath);
-		if (game->texture->Epath)
-			free(game->texture->Epath);
-		if (game->texture->Wpath)
-			free(game->texture->Wpath);
-		if (game->texture->Spath)
-			free(game->texture->Spath);
-		free(game->texture);
-	}
-	
-	// if (game->img)
-	// 	mlx_delete_image(game->mlx, game->img);
-	
-	// int i = 0;
-	// if (game->maps)
-	// {
-	// 	while (game->maps[i])
-	// 		free(game->maps[i++]);
-	// 	free(game->maps);
-	// }
-	if (game)
-		free(game);
-	}
 }
 
 void	allocation(t_game *game)
