@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 16:27:53 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:12:12 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ void	initialize_mlx(t_game * game)
 	mlx_loop(game->mlx);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_game	*game;
 
