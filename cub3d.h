@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/01 11:31:12 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:24:45 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # define S_KEY 1
 # define D_KEY 2
 #define FOV 60
-
 
 typedef struct s_cub
 {
@@ -133,23 +132,35 @@ void	check_component(char **map, t_game *game);
 int		name_check(char *name);
 void	error(char *str, t_game *game);
 void	check_c_f(t_cub	*cub, t_game *game);
+void	check_c_f_ext(t_cub *cub, char **c_str, char **f_str, t_game *game);
 int		counter(const char *s, char c);
 int		ft_toint_check(char *str, t_game *game);
 int		ft_toint_check_ext(char *str, int res, int *i, t_game *game);
 void	to_free(t_game	*game);
+void	check_newline(char **map, t_cub *cub, t_game *game);
+void	comma_calcu(char *str, t_game *game);
 
 //check_textures
 int		check_for_map(char *s, t_cub *cub, t_game *game);
+void	NO(char *str, t_game *game);
+void	SO(char *str, t_game *game);
+void	WE(char *str, t_game *game);
+void	EA(char *str, t_game *game);
+
+//check_textures_ext
+void	F(char *str, t_game *game);
+void	C(char *str, t_game *game);
 
 //map_reader
 char	**just_map(char *mapber, t_cub *cub, t_game *game);
 int		maplines(char *mapber);
 int		width_calc(char **map);
 char	**buff_map(char **map, t_cub *cub);
+void	buff_map_ext(char **map, char **new_map, t_cub *cub);
 
 // casting
 void	ray_casting(t_game *game);
 void	game_wall_printer(t_game *game, t_wall *wall, int i);
-void    init_images(t_game *game);
+void	init_images(t_game *game);
 
 #endif

@@ -7,7 +7,7 @@ SO ./textures/S.png
 
 WE ./textures/W.png
 
-NO ./textures/W.png
+NO ./textures/N.png
 
 
 F 120,0,1

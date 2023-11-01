@@ -6,15 +6,13 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:35:37 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/31 08:38:59 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:57:43 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-
-
-void    horizental_casting(t_game *game, t_casting *cast)
+void	horizental_casting(t_game *game, t_casting *cast)
 {
 	float xsteps,ysteps;
 	float atan = -1/tan(cast->ra);
@@ -144,10 +142,6 @@ void ray_casting(t_game *game)
 	float angle_br;
 
 	angle_br = (FOV * M_PI / 180) / WIGHT;
-	// cast = malloc(sizeof(t_casting));
-	// wall = malloc(sizeof(t_wall));
-	// game->cast = cast;
-	// game->wall = wall;
 	game->cast->ra = game->player->angle - (FOV * M_PI / 180) / 2;
 	game->cast->ra = angle_correcter(game->cast->ra);
 
@@ -169,7 +163,4 @@ void ray_casting(t_game *game)
 		game->cast->ra+= angle_br;
 		game->cast->ra = angle_correcter(game->cast->ra);
 	}
-	//to check if this free won't cause any problem
-	// free(cast);
-	// free(wall);
 }

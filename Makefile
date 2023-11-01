@@ -6,22 +6,26 @@
 #    By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 12:22:46 by aachfenn          #+#    #+#              #
-#    Updated: 2023/11/01 12:43:49 by aachfenn         ###   ########.fr        #
+#    Updated: 2023/11/01 14:23:48 by aachfenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC		=	main.c \
 			get_next_line/get_next_line.c \
 			map_check/map_check.c \
+			map_check/map_check_2.c \
+			map_check/map_check_3.c \
 			map_check/map_reader.c \
+			map_check/map_reader_2.c \
 			ray_casting/ray_casting.c \
 			ray_casting/init_images.c \
 			ray_casting/image_macker.c \
 			map_check/check_textures.c \
+			map_check/check_textures_ext.c \
 
 CC		= cc
 
-CFLAGS	= -fsanitize=address -g -Wall -Werror -Wextra 
+CFLAGS	= #-fsanitize=address -g -Wall -Werror -Wextra 
 
 OBJ		= ${SRC:.c=.o}
 
