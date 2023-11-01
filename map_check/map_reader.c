@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 10:39:21 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:28:25 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,89 +84,21 @@ int	maplines(char *mapber)
 	return (i);
 }
 
-int	check_for_map(char *s, t_cub *cub, t_game *game)
+int	read_first_part(t_game *game, int fd, int lines)
 {
-	char	*str;
-	char	*sub;
-
-	str = ft_strtrim(s, " ");
-	if (str[0] == 'N' && str[1] == 'O' && (str[2] == 32))
-	{
-		sub = ft_substr(str, 2, ft_strlen(str));
-		cub->NO = ft_strtrim(sub, " \n");
-		free(sub);
-		cub->check_tex++;
-	}
-	else if (str[0] == 'S' && str[1] == 'O' && (str[2] == 32))
-	{
-		sub = ft_substr(str, 2, ft_strlen(str));
-		cub->SO = ft_strtrim(sub, " \n");
-		free(sub);
-		cub->check_tex++;
-	}
-	else if (str[0] == 'W' && str[1] == 'E' && (str[2] == 32))
-	{
-		sub = ft_substr(str, 2, ft_strlen(str));
-		cub->WE = ft_strtrim(sub, " \n");
-		free(sub);
-		cub->check_tex++;
-	}
-	else if (str[0] == 'E' && str[1] == 'A' && (str[2] == 32))
-	{
-		sub = ft_substr(str, 2, ft_strlen(str));
-		cub->EA = ft_strtrim(sub, " \n");
-		free(sub);
-		cub->check_tex++;
-	}
-	else if (str[0] == 'F' && str[1] == 32)
-	{
-		sub = ft_substr(str, 1, ft_strlen(str));
-		cub->F = ft_strtrim(sub, " \n");
-		free(sub);
-		cub->check_tex++;
-	}
-	else if (str[0] == 'C' && str[1] == 32)
-	{
-		sub = ft_substr(str, 1, ft_strlen(str));
-		cub->C = ft_strtrim(sub, " \n");
-		free(sub);
-		cub->check_tex++;
-	}
-	else if (ft_isalnum(str[0]))
-	{
-		// printf("str[0] = %c\n", str[0]);
-		error("UNKNOWN ASSET\n", game);
-		free(str);
-		exit(0);
-	}
-	free(str);
-	if (cub->check_tex == 6)
-		return (0);
-	return (1);
-}
-
-char	**just_map(char *mapber, t_cub *cub, t_game *game)
-{
-	char	**str;
-	char	**map;
-	char	*tmp;
-	char	*tmp_1;
-	int		fd;
-	int		i;
-	int		lines;
+	char **str;
+	int	i;
 
 	i = 0;
-	lines = maplines(mapber);
-	fd = open(mapber, O_RDONLY);
 	str = malloc((lines + 1) * sizeof(char *));
 	if (!str)
-		return (NULL);
+		return (0);
 	while (1)
 	{
 		str[i] = get_next_line(fd);
 		if (str[i] == NULL)
 			error("ERROR ON THE INPUT\n", game);
-		if (check_for_map(str[i], cub, game) == 0)
+		if (check_for_map(str[i], game->cub, game) == 0)
 		{
 			free(str[i]);
 			break ;
@@ -175,12 +107,18 @@ char	**just_map(char *mapber, t_cub *cub, t_game *game)
 		i++;
 	}
 	free(str);
-	if (cub->check_tex != 6)
+	if (game->cub->check_tex != 6)
 		error("INPUT ERROR (TEXTURES)\n", game);
-	lines = lines - i - 3;
-	map = malloc((lines + 3) * sizeof(char *));
-	i = 0;
-	int j = 0;
+	return (i);
+}
+
+int	read_middle_part(char **map, t_game *game, int fd, int *i)
+{
+	int		j;
+	char	*tmp;
+	char	*tmp_1;
+
+	j = 0;
 	while (1)
 	{
 		tmp_1 = get_next_line(fd);
@@ -193,7 +131,7 @@ char	**just_map(char *mapber, t_cub *cub, t_game *game)
 		}
 		if (tmp[0] != '\n')
 		{
-			map[i++] = tmp_1;
+			map[(*i)++] = tmp_1;
 			free(tmp);
 			break ;
 		}
@@ -201,6 +139,72 @@ char	**just_map(char *mapber, t_cub *cub, t_game *game)
 		free(tmp);
 		j++;
 	}
+	return (j);
+}
+
+char	**just_map(char *mapber, t_cub *cub, t_game *game)
+{
+	char	**map;
+	// char	*tmp;
+	// char	*tmp_1;
+	int		fd;
+	int		i;
+	int		lines;
+	int		j;
+
+	i = 0;
+	lines = maplines(mapber);
+	fd = open(mapber, O_RDONLY);
+	i = read_first_part(game, fd, lines);
+	// str = malloc((lines + 1) * sizeof(char *));
+	// if (!str)
+	// 	return (NULL);
+	// while (1)
+	// {
+	// 	str[i] = get_next_line(fd);
+	// 	if (str[i] == NULL)
+	// 		error("ERROR ON THE INPUT\n", game);
+	// 	if (check_for_map(str[i], cub, game) == 0)
+	// 	{
+	// 		free(str[i]);
+	// 		break ;
+	// 	}
+	// 	free(str[i]);
+	// 	i++;
+	// }
+	// free(str);
+	// if (cub->check_tex != 6)
+	// 	error("INPUT ERROR (TEXTURES)\n", game);
+	lines = lines - i - 3;
+	
+	i = 0;
+	map = malloc((lines + 3) * sizeof(char *));
+	j = read_middle_part(map, game, fd, &i);
+	
+	// map = malloc((lines + 3) * sizeof(char *));
+	// i = 0;
+	// j = 0;
+	// while (1)
+	// {
+	// 	tmp_1 = get_next_line(fd);
+	// 	tmp = ft_strtrim(tmp_1, " ");
+	// 	if (tmp == NULL)
+	// 	{
+	// 		free(tmp_1);
+	// 		free(tmp);
+	// 		error("ERROR ON THE INPUT AFTER TEXTURES\n", game);
+	// 	}
+	// 	if (tmp[0] != '\n')
+	// 	{
+	// 		map[i++] = tmp_1;
+	// 		free(tmp);
+	// 		break ;
+	// 	}
+	// 	free(tmp_1);
+	// 	free(tmp);
+	// 	j++;
+	// }
+
 	cub->lines = lines - j;
 	while (1)
 	{
@@ -212,27 +216,3 @@ char	**just_map(char *mapber, t_cub *cub, t_game *game)
 	close(fd);
 	return (map);
 }
-
-// char	**mapreader(char *mapber)
-// {
-// 	char	**str;
-// 	int		fd;
-// 	int		i;
-// 	int		lines;
-
-// 	i = 0;
-// 	lines = maplines(mapber);
-// 	fd = open(mapber, O_RDONLY);
-// 	str = malloc((lines + 1) * sizeof(char *));
-// 	if (!str)
-// 		return (NULL);
-// 	while (1)
-// 	{
-// 		str[i] = get_next_line(fd);
-// 		if (str[i] == NULL)
-// 			break ;
-// 		i++;
-// 	}
-// 	close(fd);
-// 	return (str);
-// }

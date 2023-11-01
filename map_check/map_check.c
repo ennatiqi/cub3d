@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:23 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 10:54:03 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 10:58:20 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,26 +177,6 @@ void	check_mid(char **map, t_game *game)
 		while (map[i][j])
 		{
 			check_mid_ext(map, game, i, j);
-			// if (map[i][j] == '0' && map[i][j + 1] != '0' && \
-			// map[i][j + 1] != '1' && map[i][j + 1] != cub->start_p)
-			// 	error("NOT A VALID MAP\n", game);
-			// if (j > 0 && map[i][j] == '0' && (map[i][j - 1] != '0' && \
-			// map[i][j - 1] != '1' && map[i][j - 1] != cub->start_p))
-			// 	error("NOT A VALID MAP\n", game);
-			// if ((map[i][j] == '0' || map[i][j] == cub->start_p))
-			// {
-			// 	if (i == cub->lines)
-			// 		error("NOT A VALID MAP\n", game);
-			// 	if (j > ft_strlen(map[i + 1]))
-			// 		error("NOT A VALID MAP\n", game);
-			// 	if (map[i + 1][j] == 32 || map[i + 1][j] == '\n')
-			// 		error("NOT A VALID MAP\n", game);
-			// }
-			// if (i - 1 < (cub->lines) && (map[i][j] == '0' \
-			// || map[i][j] == cub->start_p) && (map[i - 1][j] == 32 \
-			// || map[i - 1][j] == '\n' || !map[i - 1][j] \
-			// || j > ft_strlen(map[i - 1])))
-			// 	error("NOT A VALID MAP\n", game);
 			j++;
 		}
 		i++;
@@ -232,17 +212,6 @@ void	check_component(char **map, t_game *game)
 		while (map[i][j])
 		{
 			check_component_ext(map, game, i, j);
-			// if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' \
-			// || map[i][j] == 'W')
-			// {
-			// 	cub->start_p = map[i][j];
-			// 	cub->y = i;
-			// 	cub->x = j;
-			// 	check++;
-			// }
-			// if (map[i][j] != 32 && map[i][j] != '\n' && map[i][j] != '0' \
-			// && map[i][j] != '1' && map[i][j] != cub->start_p)
-			// 	error("UNKNOWN CHARACTER\n", game);
 			j++;
 		}
 		i++;
@@ -262,7 +231,8 @@ void	check_first_line(char **map, t_cub *cub, t_game *game)
 	(void)map;
 	while (map[0][j])
 	{
-		if (map[i][j] && (map[i][j] == '1' && (map[i][j + 1] == '0' || map[i][j + 1] == cub->start_p)))
+		if (map[i][j] && (map[i][j] == '1' &&\
+		 (map[i][j + 1] == '0' || map[i][j + 1] == cub->start_p)))
 			error("NOT A VALID MAP FIRST LINE\n", game);
 		j++;
 	}

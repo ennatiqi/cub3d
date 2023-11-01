@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 10:54:12 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:14:53 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	check_newline(char **map, t_cub *cub, t_game *game)
 					error("AN ERROR OCCURED\n", game);
 				}
 				//TODO: free tmp should be reviewed if there is an error at the end after the \n
-				free(tmp);
+				// free(tmp);
 				i++;
 			}
 		}

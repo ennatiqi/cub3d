@@ -6,7 +6,7 @@
 #    By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 12:22:46 by aachfenn          #+#    #+#              #
-#    Updated: 2023/11/01 10:44:57 by aachfenn         ###   ########.fr        #
+#    Updated: 2023/11/01 11:30:25 by aachfenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC		=	main.c \
 			ray_casting/ray_casting.c \
 			ray_casting/init_images.c \
 			ray_casting/image_macker.c \
+			map_check/check_textures.c \
 
 CC		= cc
 
