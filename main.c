@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 15:45:11 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:27:53 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	key_press(void *game2)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		// to_free(game);
+		system("leaks cub3D");
 		mlx_close_window(game->mlx);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))

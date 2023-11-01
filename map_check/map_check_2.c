@@ -6,11 +6,26 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:14:12 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 14:17:51 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:41:18 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	check_newline_ext(t_game *game, char *tmp, int *i, char **map)
+{
+	while (*i < game->cub->lines - 1)
+	{
+		free(tmp);
+		tmp = ft_strtrim(map[(*i)], " ");
+		if (tmp[0] != '\n') 
+		{
+			free(tmp);
+			error("AN ERROR OCCURED\n", game);
+		}
+		(*i)++;
+	}
+}
 
 void	check_newline(char **map, t_cub *cub, t_game *game)
 {
@@ -25,24 +40,13 @@ void	check_newline(char **map, t_cub *cub, t_game *game)
 		tmp = ft_strtrim(map[i], " ");
 		if (tmp[0] != '\n' && j > 0)
 		{
-			error("AN ERROR OCCURED\n", game);
 			free(tmp);
+			error("AN ERROR OCCURED\n", game);
 		}
 		if (tmp[0] == '\n')
 		{
 			j++;
-			while (i < cub->lines - 1)
-			{
-				tmp = ft_strtrim(map[i], " ");
-				if (tmp[0] != '\n') 
-				{
-					free(tmp);
-					error("AN ERROR OCCURED\n", game);
-				}
-				//TODO: free tmp should be reviewed if there is an error at the end after the \n
-				free(tmp);
-				i++;
-			}
+			check_newline_ext(game, tmp, &i, map);
 		}
 		free(tmp);
 		i++;

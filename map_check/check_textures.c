@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:28:03 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 14:57:26 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:32:10 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	no(char *str, t_game *game)
 	char	*sub;
 
 	sub = ft_substr(str, 2, ft_strlen(str));
-	game->cub->NO = ft_strtrim(sub, " \n");
+	if (!game->cub->NO)
+		game->cub->NO = ft_strtrim(sub, " \n");
 	free(sub);
 	game->cub->check_tex++;
 }
@@ -27,7 +28,8 @@ void	so(char *str, t_game *game)
 	char	*sub;
 
 	sub = ft_substr(str, 2, ft_strlen(str));
-	game->cub->SO = ft_strtrim(sub, " \n");
+	if (!game->cub->SO)
+		game->cub->SO = ft_strtrim(sub, " \n");
 	free(sub);
 	game->cub->check_tex++;
 }
@@ -37,7 +39,8 @@ void	we(char *str, t_game *game)
 	char	*sub;
 
 	sub = ft_substr(str, 2, ft_strlen(str));
-	game->cub->WE = ft_strtrim(sub, " \n");
+	if (!game->cub->WE)
+		game->cub->WE = ft_strtrim(sub, " \n");
 	free(sub);
 	game->cub->check_tex++;
 }
@@ -47,7 +50,8 @@ void	ea(char *str, t_game *game)
 	char	*sub;
 
 	sub = ft_substr(str, 2, ft_strlen(str));
-	game->cub->EA = ft_strtrim(sub, " \n");
+	if (!game->cub->EA)
+		game->cub->EA = ft_strtrim(sub, " \n");
 	free(sub);
 	game->cub->check_tex++;
 }
