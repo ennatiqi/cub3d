@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/30 11:36:25 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 10:54:31 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 
 typedef struct s_cub
 {
+	int		check;
 	int		maplines;
 	char	start_p;
 	char	*NO;
@@ -55,9 +56,9 @@ typedef struct s_cub
 
 typedef struct s_player
 {
-    float x;
-    float y;
-    double angle;
+	float x;
+	float y;
+	double angle;
 } t_player;
 
 enum s_deraction{
@@ -94,7 +95,6 @@ typedef struct s_wall
 	float wall_start;
 	float wall_end;
 	float corrected_angle;
-	
 }	t_wall;
 
 typedef struct s_casting
@@ -106,45 +106,46 @@ typedef struct s_casting
 	float dx;
 	float dy;
 	float ra;
+	//TODO: add the enum
+	
 	enum s_deraction der;
 }	t_casting;
 
 typedef struct s_game
 {
-	int		height;
-	int		width;
-	mlx_t*	mlx;
-	mlx_image_t* img;
-    char    **maps;
+	int			height;
+	int			width;
+	mlx_t*		mlx;
+	mlx_image_t*	img;
+	char	**maps;
 	t_player *player;
-    t_cub    *cub;
+	t_cub    *cub;
 	t_casting *cast;
 	t_wall *wall;
 	t_texture *texture;
-}		t_game;
+}	t_game;
 
 
 //map_check
-void	check_mid(char **map, t_cub	*cub);
-void	check_the_path(char **map, t_cub *cub);
-void	check_the_path_2(char **map, t_cub *cub);
-void	check_component(char **map, t_cub *cub);
+void	check_mid(char **map, t_game *game);
+void	check_first_line(char **map, t_cub *cub, t_game *game);
+void	check_component(char **map, t_game *game);
 int		name_check(char *name);
-void	error(char *str);
-void	check_c_f(t_cub	*cub);
+void	error(char *str, t_game *game);
+void	check_c_f(t_cub	*cub, t_game *game);
 int		counter(const char *s, char c);
-int		ft_toint_check(char *str);
-int		ft_toint_check_ext(char *str, int res, int *i);
+int		ft_toint_check(char *str, t_game *game);
+int		ft_toint_check_ext(char *str, int res, int *i, t_game *game);
+void	to_free(t_game	*game);
 
 //map_reader
-char	**just_map(char *mapber, t_cub *cub);
+char	**just_map(char *mapber, t_cub *cub, t_game *game);
 int		maplines(char *mapber);
-char	**mapreader(char *mapber);
 int		width_calc(char **map);
 char	**buff_map(char **map, t_cub *cub);
 
 // casting
-void ray_casting(t_game *game);
+void	ray_casting(t_game *game);
 void	game_wall_printer(t_game *game, t_wall *wall, int i);
 void    init_images(t_game *game);
 

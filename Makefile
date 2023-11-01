@@ -6,7 +6,7 @@
 #    By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 12:22:46 by aachfenn          #+#    #+#              #
-#    Updated: 2023/10/31 08:03:54 by aachfenn         ###   ########.fr        #
+#    Updated: 2023/11/01 10:44:57 by aachfenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC		=	main.c \
 
 CC		= cc
 
-CFLAGS	= #-fsanitize=address -g -Wall -Werror -Wextra 
+CFLAGS	= -fsanitize=address -g -Wall -Werror -Wextra 
 
 OBJ		= ${SRC:.c=.o}
 
@@ -49,5 +49,5 @@ fclean	:	clean
 re		: fclean all
 
 run	:  all
-	${RM} ${OBJ}
+	# ${RM} ${OBJ}
 	./cub3D ./maps/map.cub

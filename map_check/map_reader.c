@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/31 08:14:33 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 10:39:21 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	maplines(char *mapber)
 	return (i);
 }
 
-int	check_for_map(char *s, t_cub *cub)
+int	check_for_map(char *s, t_cub *cub, t_game *game)
 {
 	char	*str;
 	char	*sub;
@@ -134,7 +134,8 @@ int	check_for_map(char *s, t_cub *cub)
 	}
 	else if (ft_isalnum(str[0]))
 	{
-		error("UNKNOWN ASSET\n");
+		// printf("str[0] = %c\n", str[0]);
+		error("UNKNOWN ASSET\n", game);
 		free(str);
 		exit(0);
 	}
@@ -144,7 +145,7 @@ int	check_for_map(char *s, t_cub *cub)
 	return (1);
 }
 
-char	**just_map(char *mapber, t_cub *cub)
+char	**just_map(char *mapber, t_cub *cub, t_game *game)
 {
 	char	**str;
 	char	**map;
@@ -164,8 +165,8 @@ char	**just_map(char *mapber, t_cub *cub)
 	{
 		str[i] = get_next_line(fd);
 		if (str[i] == NULL)
-			error("ERROR ON THE INPUT\n");
-		if (check_for_map(str[i], cub) == 0)
+			error("ERROR ON THE INPUT\n", game);
+		if (check_for_map(str[i], cub, game) == 0)
 		{
 			free(str[i]);
 			break ;
@@ -175,7 +176,7 @@ char	**just_map(char *mapber, t_cub *cub)
 	}
 	free(str);
 	if (cub->check_tex != 6)
-		error("INPUT ERROR (TEXTURES)\n");
+		error("INPUT ERROR (TEXTURES)\n", game);
 	lines = lines - i - 3;
 	map = malloc((lines + 3) * sizeof(char *));
 	i = 0;
@@ -188,7 +189,7 @@ char	**just_map(char *mapber, t_cub *cub)
 		{
 			free(tmp_1);
 			free(tmp);
-			error("ERROR ON THE INPUT AFTER TEXTURES\n");
+			error("ERROR ON THE INPUT AFTER TEXTURES\n", game);
 		}
 		if (tmp[0] != '\n')
 		{
@@ -212,26 +213,26 @@ char	**just_map(char *mapber, t_cub *cub)
 	return (map);
 }
 
-char	**mapreader(char *mapber)
-{
-	char	**str;
-	int		fd;
-	int		i;
-	int		lines;
+// char	**mapreader(char *mapber)
+// {
+// 	char	**str;
+// 	int		fd;
+// 	int		i;
+// 	int		lines;
 
-	i = 0;
-	lines = maplines(mapber);
-	fd = open(mapber, O_RDONLY);
-	str = malloc((lines + 1) * sizeof(char *));
-	if (!str)
-		return (NULL);
-	while (1)
-	{
-		str[i] = get_next_line(fd);
-		if (str[i] == NULL)
-			break ;
-		i++;
-	}
-	close(fd);
-	return (str);
-}
+// 	i = 0;
+// 	lines = maplines(mapber);
+// 	fd = open(mapber, O_RDONLY);
+// 	str = malloc((lines + 1) * sizeof(char *));
+// 	if (!str)
+// 		return (NULL);
+// 	while (1)
+// 	{
+// 		str[i] = get_next_line(fd);
+// 		if (str[i] == NULL)
+// 			break ;
+// 		i++;
+// 	}
+// 	close(fd);
+// 	return (str);
+// }

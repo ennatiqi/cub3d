@@ -6,17 +6,17 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/10/31 08:51:33 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 10:54:12 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check_newline(char **map, t_cub *cub)
+void	check_newline(char **map, t_cub *cub, t_game *game)
 {
-	int i;
-	int j;
-	char *tmp;
+	char	*tmp;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -25,8 +25,8 @@ void	check_newline(char **map, t_cub *cub)
 		tmp = ft_strtrim(map[i], " ");
 		if (tmp[0] != '\n' && j > 0)
 		{
+			error("AN ERROR OCCURED\n", game);
 			free(tmp);
-			error("ERROR NEW_LINES AT THE END OF THE MAP\n");
 		}
 		if (tmp[0] == '\n')
 		{
@@ -37,8 +37,9 @@ void	check_newline(char **map, t_cub *cub)
 				if (tmp[0] != '\n') 
 				{
 					free(tmp);
-					error("ERROR NEW_LINES AT THE END OF THE MAP\n");
+					error("AN ERROR OCCURED\n", game);
 				}
+				//TODO: free tmp should be reviewed if there is an error at the end after the \n
 				free(tmp);
 				i++;
 			}
@@ -48,14 +49,8 @@ void	check_newline(char **map, t_cub *cub)
 	}
 }
 
-void set_game(t_game  *game, char **av)
+void	initializer(t_game *game)
 {
-	// t_cub	*cub;
-	char	**map;
-	
-	// game->player = malloc (sizeof(t_player));
-	// cub = malloc(sizeof(t_cub));
-	// game->cub = cub;
 	game->cub->check_tex = 0;
 	game->cub->NO = NULL;
 	game->cub->EA = NULL;
@@ -63,26 +58,21 @@ void set_game(t_game  *game, char **av)
 	game->cub->WE = NULL;
 	game->cub->C = NULL;
 	game->cub->F = NULL;
-	
-	name_check(av[1]);
-	game->cub->maplines = maplines(av[1]);
-	map = just_map(av[1], game->cub);
-	// printf("%d\n", game->cub->lines);
-	check_newline(map, game->cub);
-	char **buff = buff_map(map, game->cub);
-	check_component(map, game->cub);
-	check_the_path(map, game->cub);
-	check_the_path_2(map, game->cub);
-	check_mid(map, game->cub);
-	check_c_f(game->cub);
-	if (game->cub->NO[0] == '\0' || game->cub->EA[0] == '\0' ||\
-	 game->cub->SO[0] == '\0' || game->cub->WE[0] == '\0')
-		error("ERROR IN TEX\n");
-	game->maps = buff;
-	game->height = game->cub->lines;
-	game->width = width_calc(map);
-	game->player->y = (game->cub->y * 64) + 32;
-	game->player->x = (game->cub->x * 64) + 32;
+	game->cub->c_color = NULL;
+	game->cub->f_color = NULL;
+	// set texture struct
+	game->texture->Ncolors = NULL;
+	game->texture->Ecolors = NULL;
+	game->texture->Wcolors = NULL;
+	game->texture->Scolors = NULL;
+	game->texture->Npath = NULL;
+	game->texture->Epath = NULL;
+	game->texture->Wpath = NULL;
+	game->texture->Spath = NULL;
+}
+
+void direction_seter(t_game *game)
+{
 	if (game->cub->start_p == 'N')
 		game->player->angle = 3 * M_PI_2;
 	if (game->cub->start_p == 'S')
@@ -91,6 +81,37 @@ void set_game(t_game  *game, char **av)
 		game->player->angle = 0;
 	if (game->cub->start_p == 'W')
 		game->player->angle = M_PI;
+}
+
+// void	data_needed_after(t_game *game)
+// {
+	
+// }
+
+void set_game(t_game  *game, char **av)
+{
+	char	**map;
+	char	**buff;
+
+	initializer(game);
+	name_check(av[1]);
+	// game->cub->maplines = maplines(av[1]);
+	map = just_map(av[1], game->cub, game);
+	check_newline(map, game->cub, game);
+	buff = buff_map(map, game->cub);
+	check_component(map, game);
+	check_first_line(map, game->cub, game);
+	check_mid(map, game);
+	check_c_f(game->cub, game);
+	if (game->cub->NO[0] == '\0' || game->cub->EA[0] == '\0' ||\
+	 game->cub->SO[0] == '\0' || game->cub->WE[0] == '\0')
+		error("ERROR IN TEX\n", game);
+	game->maps = buff;
+	game->height = game->cub->lines;
+	game->width = width_calc(map);
+	game->player->y = (game->cub->y * 64) + 32;
+	game->player->x = (game->cub->x * 64) + 32;
+	direction_seter(game);
 	int i = 0;
 	while (map[i])
 		free(map[i++]);
@@ -170,8 +191,6 @@ void key_press(void *game2)
 			game->player->y = tmpy;
 		}
 	}
-	
-
 }
 
 void draw_rectangle(mlx_image_t* img, int x, int y, int width,int color)
@@ -199,30 +218,136 @@ void draw(void *game2)
 	ray_casting(game);
 }
 
+void	to_free(t_game	*game)
+{
+	if (game)
+	{
+		if (game->cub)
+		{
+			if (game->cub->NO)
+				free(game->cub->NO);
+			if (game->cub->EA)
+				free(game->cub->EA);
+			if (game->cub->SO)
+				free(game->cub->SO);
+			if (game->cub->WE)
+				free(game->cub->WE);
+			if (game->cub->C)
+				free(game->cub->C);
+			if (game->cub->F)
+				free(game->cub->F);
+
+			if (game->cub->c_color)
+				free(game->cub->c_color);
+			if (game->cub->f_color)
+				free(game->cub->f_color);
+			
+			if (game->cub)
+				free(game->cub);
+		}
+		if (game->player)
+			free(game->player);
+		if (game->cast)
+			free(game->cast);
+		if (game->wall)
+			free(game->wall);
+	
+	//free textures struct
+	if (game->texture)
+	{
+		// if (game->texture->Nimage)
+		// 	mlx_delete_texture(game->texture->Nimage);
+		// if (game->texture->Wimage)
+		// 	mlx_delete_texture(game->texture->Wimage);
+		// if (game->texture->Simage)
+		// 	mlx_delete_texture(game->texture->Simage);
+		// if (game->texture->Eimage)
+		// 	mlx_delete_texture(game->texture->Eimage);
+
+		if (game->texture->Ncolors)
+			free(game->texture->Ncolors);
+		if (game->texture->Ecolors)
+			free(game->texture->Ecolors);
+		if (game->texture->Wcolors)
+			free(game->texture->Wcolors);
+		if (game->texture->Scolors)
+			free(game->texture->Scolors);
+		if (game->texture->Npath)
+			free(game->texture->Npath);
+		if (game->texture->Epath)
+			free(game->texture->Epath);
+		if (game->texture->Wpath)
+			free(game->texture->Wpath);
+		if (game->texture->Spath)
+			free(game->texture->Spath);
+		free(game->texture);
+	}
+	
+	// if (game->img)
+	// 	mlx_delete_image(game->mlx, game->img);
+	// mlx_terminate(game->mlx);
+	
+	// int i = 0;
+	// if (game->maps)
+	// {
+	// 	while (game->maps[i])
+	// 		free(game->maps[i++]);
+	// 	free(game->maps);
+	// }
+	if (game)
+		free(game);
+	}
+}
+
+void	allocation(t_game *game)
+{
+	game->player = malloc (sizeof(t_player));
+	if (!game->player)
+		error("ERROR IN MALLOC\n", game);
+	game->cub = malloc(sizeof(t_cub));
+	if (!game->cub)
+		error("ERROR IN MALLOC\n", game);
+	game->cast = malloc(sizeof(t_casting));
+	if (!game->cast)
+		error("ERROR IN MALLOC\n", game);
+	game->wall = malloc(sizeof(t_wall));
+	if (!game->wall)
+		error("ERROR IN MALLOC\n", game);
+	game->texture = malloc(sizeof(t_texture));
+	if (!game->texture)
+		error("ERROR IN MALLOC\n", game);
+}
+
+void	initialize_mlx(t_game * game)
+{
+	init_images(game);
+	game->mlx = mlx_init(WIGHT, HEIGHT, "Cub3d", false);
+	if (!game->mlx)
+		error("ERROR IN MLX_INIT\n", game);
+	game->img = mlx_new_image(game->mlx, WIGHT, HEIGHT);
+	if (!game->img)
+		error("ERROR IN MLX_NEW_IMAGE\n", game);
+	mlx_image_to_window(game->mlx,game->img,0,0);
+	if (!game->img)
+		error("ERROR IN MLX_IMAGE_TO_WINDOW\n", game);
+	mlx_loop_hook(game->mlx, key_press, game);
+	mlx_loop_hook(game->mlx, draw, game);
+	mlx_loop(game->mlx);
+}
 
 int main(int ac, char **av)
 {
 	t_game  *game;
 
-
 	if (ac == 2)
 	{
 		game = malloc(sizeof(t_game));
-		game->player = malloc (sizeof(t_player));
-		game->cub = malloc(sizeof(t_cub));
-		game->cast = malloc(sizeof(t_casting));
-		game->wall = malloc(sizeof(t_wall));
+		if (!game)
+			error("ERROR IN MALLOC\n", game);
+		allocation(game);
 		set_game(game, av);
-		init_images(game);
-
-		game->mlx = mlx_init(WIGHT, HEIGHT, "Cub3d", false);
-		game->img = mlx_new_image(game->mlx, WIGHT, HEIGHT);
-		mlx_image_to_window(game->mlx,game->img,0,0);
-
-		mlx_loop_hook(game->mlx, key_press, game);
-		mlx_loop_hook(game->mlx, draw, game);
-		
-		mlx_loop(game->mlx);
+		initialize_mlx(game);
+		// to_free(game);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 02:39:14 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/10/31 08:50:48 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 09:38:20 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void error_image(char *str)
 
 void    init_images(t_game *game)
 {
-    game->texture = malloc(sizeof(t_texture));
+
+	//TODO check if this is right
+    // game->texture = malloc(sizeof(t_texture));
     game->texture->Epath = game->cub->EA;
     game->texture->Npath = game->cub->NO;
     game->texture->Wpath = game->cub->WE;
