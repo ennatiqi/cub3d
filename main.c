@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 11:14:53 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:35:35 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,6 @@ void	to_free(t_game	*game)
 	
 	// if (game->img)
 	// 	mlx_delete_image(game->mlx, game->img);
-	// mlx_terminate(game->mlx);
 	
 	// int i = 0;
 	// if (game->maps)

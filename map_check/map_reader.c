@@ -6,11 +6,30 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 11:28:25 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:28:17 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	buff_map_ext(char **map, char **new_map, t_cub *cub)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i <= cub->lines)
+	{
+		j = 0;
+		while (map[i][j] && map[i][j] != '\n')
+		{
+			if (map[i][j] != 32)
+				new_map[i][j] = map[i][j];
+			j++;
+		}
+		i++;
+	}
+}
 
 char **buff_map(char **map, t_cub *cub)
 {
@@ -33,18 +52,19 @@ char **buff_map(char **map, t_cub *cub)
 		i++;
 	}
 	free(str);
-	i = 0;
-	while (i <= cub->lines)
-	{
-		int j = 0;
-		while (map[i][j] && map[i][j] != '\n')
-		{
-			if (map[i][j] != 32)
-				new_map[i][j] = map[i][j];
-			j++;
-		}
-		i++;
-	}
+	buff_map_ext(map, new_map, cub);
+	// i = 0;
+	// while (i <= cub->lines)
+	// {
+	// 	int j = 0;
+	// 	while (map[i][j] && map[i][j] != '\n')
+	// 	{
+	// 		if (map[i][j] != 32)
+	// 			new_map[i][j] = map[i][j];
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
 	return (new_map);
 }
 

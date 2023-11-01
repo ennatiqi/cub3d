@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:23 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 10:58:20 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:35:04 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,24 +144,25 @@ void	check_mid_ext(char **map, t_game *game, int i, size_t j)
 {
 	if (map[i][j] == '0' && map[i][j + 1] != '0' && \
 	map[i][j + 1] != '1' && map[i][j + 1] != game->cub->start_p)
-		error("NOT A VALID MAP\n", game);
+		error("NOT A VALID MAP >>\n", game);
 	if (j > 0 && map[i][j] == '0' && (map[i][j - 1] != '0' && \
 	map[i][j - 1] != '1' && map[i][j - 1] != game->cub->start_p))
-		error("NOT A VALID MAP\n", game);
+		error("NOT A VALID MAP <<\n", game);
 	if ((map[i][j] == '0' || map[i][j] == game->cub->start_p))
 	{
-		if (i == game->cub->lines)
-			error("NOT A VALID MAP\n", game);
+		// TODO the (+1) was added recently and should be reviewed
+		if (i == game->cub->lines + 1)
+			error("NOT A VALID MAP 1\n", game);
 		if (j > ft_strlen(map[i + 1]))
-			error("NOT A VALID MAP\n", game);
+			error("NOT A VALID MAP 2\n", game);
 		if (map[i + 1][j] == 32 || map[i + 1][j] == '\n')
-			error("NOT A VALID MAP\n", game);
+			error("NOT A VALID MAP 3\n", game);
 	}
 	if (i - 1 < (game->cub->lines) && (map[i][j] == '0' \
 	|| map[i][j] == game->cub->start_p) && (map[i - 1][j] == 32 \
 	|| map[i - 1][j] == '\n' || !map[i - 1][j] \
 	|| j > ft_strlen(map[i - 1])))
-		error("NOT A VALID MAP\n", game);
+		error("NOT A VALID MAP ^\n", game);
 }
 
 void	check_mid(char **map, t_game *game)
@@ -171,6 +172,7 @@ void	check_mid(char **map, t_game *game)
 
 	i = 1;
 	j = 0;
+	printf("lines = %d\n", game->cub->lines);
 	while (map[i])
 	{
 		j = 0;
