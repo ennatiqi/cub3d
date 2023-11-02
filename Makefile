@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+         #
+#    By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 12:22:46 by aachfenn          #+#    #+#              #
-#    Updated: 2023/11/01 15:44:53 by aachfenn         ###   ########.fr        #
+#    Updated: 2023/11/02 13:55:53 by rennatiq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC		=	main.c \
 			map_check/check_textures.c \
 			map_check/check_textures_ext.c \
 			map_check/to_free.c \
+			ray_casting/horizental_vertical_cas.c \
 
 CC		= cc
 

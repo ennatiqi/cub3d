@@ -3,93 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:35:37 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/01 13:57:43 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:12:48 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	horizental_casting(t_game *game, t_casting *cast)
+void	wall_distans_calculater_ext(t_game *game, float *distance_h)
 {
-	float	ysteps;
-	float	xsteps;
-	float	atan;
-	int		tmpx;
-	int		tmpy;
-
-	atan = -1 / tan(cast->ra);
-	if (cast->ra > 0 && cast->ra < M_PI)
-	{
-		cast->hy = ((int)(game->player->y / 64) * 64) + 64;
-		cast->hx = (game->player->y - cast->hy) * atan + game->player->x;
-		ysteps = 64;
-		xsteps = -64 * atan;
-	}
-	else if (cast->ra < (M_PI * 2) && cast->ra > M_PI)
-	{
-		cast->hy = ((int)(game->player->y / 64) * 64) - 0.001;
-		cast->hx = (game->player->y - cast->hy) * atan + game->player->x;
-		ysteps = -64;
-		xsteps = 64 * atan;
-	}
-	while (1)
-	{
-		tmpx = (int)(cast->hx / 64);
-		tmpy = (int)(cast->hy / 64);
-		if (tmpx > 0 && tmpx < game->width && tmpy > 0 && tmpy < game->height)
-		{
-			if (game->maps[tmpy][tmpx] == '1')
-				break ;
-			cast->hx += xsteps;
-			cast->hy += ysteps;
-		}
-		else
-			break ;
-	}
-}
-
-void	vertical_casting(t_game *game, t_casting *cast)
-{
-	float	xsteps;
-	float	ysteps;
-	float	atan;
-	int		tmpx;
-	int		tmpy;
-
-	xsteps = 0;
-	ysteps = 0;
-	atan = -tan(cast->ra);
-	if (cast->ra <= M_PI / 2 || cast->ra >= 3 * (M_PI / 2))
-	{
-		cast->vx = ((int)(game->player->x / 64) * 64) + 64;
-		cast->vy = (game->player->x - cast->vx) * atan + game->player->y;
-		xsteps = 64; 
-		ysteps = -64 * atan;
-	}
-	else if (cast->ra > M_PI / 2 && cast->ra < 3 * (M_PI / 2))
-	{
-		cast->vx = ((int)(game->player->x / 64) * 64) - 0.001;
-		cast->vy = (game->player->x - cast->vx) * atan + game->player->y;
-		xsteps = -64;
-		ysteps = 64 * atan;
-	}
-	while (1)
-	{
-		tmpx = (int)(cast->vx / 64);
-		tmpy = (int)(cast->vy / 64);
-		if (tmpx > 0 && tmpx < game->width && tmpy > 0 && tmpy < game->height)
-		{
-			if (game->maps[tmpy][tmpx] == '1')
-				break ;
-			cast->vx += xsteps;
-			cast->vy += ysteps;
-		}
-		else
-			break ;
-	}
+	game->cast->dx = game->cast->hx;
+	game->cast->dy = game->cast->hy;
+	if (game->cast->ra >= 0 && game->cast->ra <= M_PI)
+		game->cast->der = south;
+	if (game->cast->ra < (M_PI * 2) && game->cast->ra > M_PI)
+		game->cast->der = north;
+	game->wall->dist_to_wall = (*distance_h) * cos(game->wall->corrected_angle);
 }
 
 void	wall_distans_calculater(t_game *game, t_casting *cast, t_wall *wall)
@@ -102,15 +33,7 @@ void	wall_distans_calculater(t_game *game, t_casting *cast, t_wall *wall)
 	distance_v = sqrt(pow(game->player->x - cast->vx, 2)
 			+ pow(game->player->y - cast->vy, 2));
 	if (distance_h < distance_v)
-	{
-		game->cast->dx = cast->hx;
-		game->cast->dy = cast->hy;
-		if (cast->ra >= 0 && cast->ra <= M_PI)
-			game->cast->der = south;
-		if (cast->ra < (M_PI * 2) && cast->ra > M_PI)
-			game->cast->der = north;
-		game->wall->dist_to_wall = distance_h * cos(wall->corrected_angle);
-	}
+		wall_distans_calculater_ext(game, &distance_h);
 	else
 	{
 		game->cast->dx = cast->vx;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_images.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 02:39:14 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/01 13:58:16 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:30:55 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,8 @@ void	image_load(mlx_texture_t *image, int *color)
 	}
 }
 
-void	init_images(t_game *game)
+void	check_for_textures(t_game *game)
 {
-	game->texture->Epath = game->cub->EA;
-	game->texture->Npath = game->cub->NO;
-	game->texture->Wpath = game->cub->WE;
-	game->texture->Spath = game->cub->SO;
 	game->texture->Eimage = mlx_load_png(game->texture->Epath);
 	if (!game->texture->Eimage)
 		error("NO SUCH TEXTURE\n", game);
@@ -62,6 +58,15 @@ void	init_images(t_game *game)
 	if (game->texture->Wimage->width != 64
 		&& game->texture->Wimage->height != 64)
 		error("TEXTURE SIZE MUST BE 64x64\n", game);
+}
+
+void	init_images(t_game *game)
+{
+	game->texture->Epath = game->cub->EA;
+	game->texture->Npath = game->cub->NO;
+	game->texture->Wpath = game->cub->WE;
+	game->texture->Spath = game->cub->SO;
+	check_for_textures(game);
 	game->texture->Ccolor = get_rgba(game->cub->c_color[0],
 			game->cub->c_color[1], game->cub->c_color[2],
 			game->cub->c_color[3]);

@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/02 12:54:42 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:07:55 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,10 @@ void	to_free(t_game	*game);
 void	free_cub(t_game *game);
 void	free_map(char **map);
 void	free_textures(t_game *game);
+
+//horizental_vertical_casting
+void	horizental_casting(t_game *game, t_casting *cast);
+void	vertical_casting(t_game *game, t_casting *cast);
 
 // casting
 void	ray_casting(t_game *game);

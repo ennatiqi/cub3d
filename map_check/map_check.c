@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:23 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/02 13:02:25 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:43:03 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	check_mid(char **map, t_game *game)
 	}
 }
 
-void check_component_ext(char **map, t_game *game, int i, int j)
+void	check_component_ext(char **map, t_game *game, int i, int j)
 {
 	if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' \
 	|| map[i][j] == 'W')
