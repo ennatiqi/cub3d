@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:17:18 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 14:21:12 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 08:40:05 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ int	name_check(char *name)
 	name[j + 2] == 'u' && name[j + 3] == 'b')
 		return (1);
 	else
+	{
 		printf("YOUR MAP DOENS'T END WHITH '.cub'\n");
+		exit(0);
+	}
 	return (0);
 }
