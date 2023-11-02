@@ -100,10 +100,7 @@ void	key_press(void *game2)
 	tmpy = game->player->y;
 	speed = 2;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-	{
-		// to_free(game);
 		mlx_close_window(game->mlx);
-	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		game->player->angle -= 0.05;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
