@@ -70,7 +70,7 @@ void	set_game(t_game *game, char **av)
 	|| game->cub->SO[0] == '\0' || game->cub->WE[0] == '\0')
 		error("ERROR IN TEX\n", game);
 	game->maps = buff;
-	game->height = game->cub->lines;
+	game->height = game->cub->lines + 1;
 	game->width = width_calc(map);
 	game->player->y = (game->cub->y * 64) + 32;
 	game->player->x = (game->cub->x * 64) + 32;

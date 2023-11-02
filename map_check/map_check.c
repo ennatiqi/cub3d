@@ -16,6 +16,7 @@ void error(char *str, t_game *game)
 {
 	while (*str)
 		write(2, str++, 1);
+
 	to_free(game);
 	system("leaks cub3D");
 	exit (1);
