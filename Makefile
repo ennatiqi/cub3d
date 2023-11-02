@@ -6,7 +6,7 @@
 #    By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 12:22:46 by aachfenn          #+#    #+#              #
-#    Updated: 2023/11/02 13:55:53 by rennatiq         ###   ########.fr        #
+#    Updated: 2023/11/02 15:07:35 by rennatiq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ SRC		=	main.c \
 			map_check/map_reader.c \
 			map_check/map_reader_2.c \
 			ray_casting/ray_casting.c \
+			ray_casting/ray_casting_2.c \
+			ray_casting/key_press.c \
 			ray_casting/init_images.c \
 			ray_casting/image_macker.c \
 			map_check/check_textures.c \
@@ -27,7 +29,7 @@ SRC		=	main.c \
 
 CC		= cc
 
-CFLAGS	= #-fsanitize=address -g #-Wall -Werror -Wextra 
+CFLAGS	= -Wall -Werror -Wextra #-fsanitize=address -g 
 
 OBJ		= ${SRC:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/02 12:57:30 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:52:44 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ int	read_first_part(t_game *game, int fd, int lines)
 	return (i);
 }
 
+void	read_middle_part_error(t_game *game, char *tmp, char *tmp_1)
+{
+	free(tmp_1);
+	free(tmp);
+	error("ERROR ON THE INPUT AFTER TEXTURES\n", game);
+}
+
 int	read_middle_part(char **map, t_game *game, int fd, int *i)
 {
 	int		j;
@@ -52,11 +59,7 @@ int	read_middle_part(char **map, t_game *game, int fd, int *i)
 		tmp_1 = get_next_line(fd);
 		tmp = ft_strtrim(tmp_1, " ");
 		if (tmp == NULL)
-		{
-			free(tmp_1);
-			free(tmp);
-			error("ERROR ON THE INPUT AFTER TEXTURES\n", game);
-		}
+			read_middle_part_error(game, tmp, tmp_1);
 		if (tmp[0] != '\n')
 		{
 			free(tmp);

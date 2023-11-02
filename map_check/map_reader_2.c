@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 10:59:29 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/02 12:55:55 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:50:07 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	buff_map_ext(char **map, char **new_map, t_cub *cub)
 int	width_calc(char **map)
 {
 	int		i;
-	size_t len;
+	size_t	len;
 
 	i = 0;
 	len = 0;

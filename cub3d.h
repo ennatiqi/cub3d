@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/02 14:07:55 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:49:09 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,11 @@ void	vertical_casting(t_game *game, t_casting *cast);
 void	ray_casting(t_game *game);
 void	game_wall_printer(t_game *game, t_wall *wall, int i);
 void	init_images(t_game *game);
+
+// casting_2
+void	exiter(t_game *game);
+int		valide_move(int tmpy, int tmpx, t_game *game);
+void	key_press(void *game2);
+void	draw(void *game2);
 
 #endif

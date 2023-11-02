@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 03:25:30 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/02 13:42:50 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:07:45 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	game_wall_printer_ext(t_game *game, int i, int j, int x)
 void	game_wall_printer(t_game *game, t_wall *wall, int i)
 {
 	int	j;
-	int	y;
 	int	x;
 
 	j = -1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 15:45:11 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:57:27 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,112 +49,6 @@ void	set_game(t_game *game, char **av)
 	free_map(map);
 }
 
-int	valide_move(int tmpy, int tmpx, t_game *game)
-{
-	tmpy /= 64;
-	tmpx /= 64;
-	if ((game->maps[(int)game->player->y / 64][tmpx] == '1' && \
-	game->maps[tmpy][(int)game->player->x / 64] == '1') \
-	|| game->maps[tmpy][tmpx] == '1')
-		return (0);
-	return (1);
-}
-
-void	key_press(void *game2)
-{
-	t_game	*game;
-	int		speed;
-	float	tmpx;
-	float	tmpy;
-
-	game = (t_game *)game2;
-	tmpx = game->player->x;
-	tmpy = game->player->y;
-	speed = 2;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-	{
-		// to_free(game);
-		// system("leaks cub3D");
-		mlx_close_window(game->mlx);
-	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		game->player->angle -= 0.05;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		game->player->angle += 0.05;
-	if (game->player->angle < 0)
-		game->player->angle += 2 * M_PI;
-	if (game->player->angle > 2 * M_PI)
-		game->player->angle -= 2 * M_PI;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-	{
-		tmpy += speed * sin(game->player->angle + M_PI / 2);
-		tmpx += speed * cos(game->player->angle + M_PI / 2);
-		if (valide_move(tmpy,tmpx,game))
-		{
-			game->player->x = tmpx;
-			game->player->y = tmpy;
-		}
-	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-	{
-		tmpy -= speed * sin(game->player->angle + M_PI / 2);
-		tmpx -= speed * cos(game->player->angle + M_PI / 2);
-		if (valide_move(tmpy,tmpx,game))
-		{
-			game->player->x = tmpx;
-			game->player->y = tmpy;
-		}
-	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W) || \
-	mlx_is_key_down(game->mlx, MLX_KEY_UP))
-	{
-		tmpy += speed * sin(game->player->angle);
-		tmpx += speed * cos(game->player->angle);
-		if (valide_move(tmpy, tmpx, game))
-		{
-			game->player->x = tmpx;
-			game->player->y = tmpy;
-		}
-	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S) || \
-	mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
-	{
-		tmpy -= speed * sin(game->player->angle);
-		tmpx -= speed * cos(game->player->angle);
-		if (valide_move(tmpy,tmpx,game))
-		{
-			game->player->x = tmpx;
-			game->player->y = tmpy;
-		}
-	}
-}
-
-void	draw_rectangle(mlx_image_t* img, int x, int y, int width,int color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < width)
-	{
-		j = 0;
-		while (j < width)
-		{
-			mlx_put_pixel(img, x + i, y + j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw(void *game2)
-{
-	t_game	*game;
-
-	game = (t_game *)game2;
-	ray_casting(game);
-}
-
 void	allocation(t_game *game)
 {
 	game->player = malloc (sizeof(t_player));
@@ -179,7 +73,7 @@ void	allocation(t_game *game)
 	ft_bzero(game->texture, sizeof(t_texture));
 }
 
-void	initialize_mlx(t_game * game)
+void	initialize_mlx(t_game *game)
 {
 	init_images(game);
 	game->mlx = mlx_init(WIGHT, HEIGHT, "Cub3d", false);
@@ -188,7 +82,7 @@ void	initialize_mlx(t_game * game)
 	game->img = mlx_new_image(game->mlx, WIGHT, HEIGHT);
 	if (!game->img)
 		error("ERROR IN MLX_NEW_IMAGE\n", game);
-	mlx_image_to_window(game->mlx,game->img,0,0);
+	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	if (!game->img)
 		error("ERROR IN MLX_IMAGE_TO_WINDOW\n", game);
 	mlx_loop_hook(game->mlx, key_press, game);
