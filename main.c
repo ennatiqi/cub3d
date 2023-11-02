@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/02 15:51:52 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:53:40 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	set_game(t_game *game, char **av)
 	check_first_line(map, game->cub, game);
 	check_mid(map, game);
 	check_c_f(game->cub, game);
-	if (game->cub->NO[0] == '\0' || game->cub->EA[0] == '\0' \
-	|| game->cub->SO[0] == '\0' || game->cub->WE[0] == '\0')
+	if (game->cub->no[0] == '\0' || game->cub->ea[0] == '\0' \
+	|| game->cub->so[0] == '\0' || game->cub->we[0] == '\0')
 		error("ERROR IN TEX\n", game);
 	game->maps = buff;
 	game->height = game->cub->lines + 1;

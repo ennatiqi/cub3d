@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:17:18 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 14:21:12 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:56:08 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ void	check_c_f(t_cub	*cub, t_game *game)
 	char	**f_str;
 	int		i;
 
-	if (!cub->C || !cub->F)
+	if (!cub->c || !cub->f)
 		error("ERROR IN THE COLOR\n", game);
-	comma_calcu(cub->C, game);
-	comma_calcu(cub->F, game);
-	if (counter(cub->C, ',') != 3 || counter(cub->F, ',') != 3)
+	comma_calcu(cub->c, game);
+	comma_calcu(cub->f, game);
+	if (counter(cub->c, ',') != 3 || counter(cub->f, ',') != 3)
 		error("ERROR IN THE COLOR\n", game);
 	cub->c_color = malloc(sizeof(int) * 4);
 	cub->f_color = malloc(sizeof(int) * 4);
-	c_str = ft_split(cub->C, ',');
-	f_str = ft_split(cub->F, ',');
+	c_str = ft_split(cub->c, ',');
+	f_str = ft_split(cub->f, ',');
 	check_c_f_ext(cub, c_str, f_str, game);
 	i = 0;
-	while (i < counter(cub->C, ','))
+	while (i < counter(cub->c, ','))
 		free(c_str[i++]);
 	free(c_str);
 	i = 0;
-	while (i < counter(cub->C, ','))
+	while (i < counter(cub->c, ','))
 		free(f_str[i++]);
 	free(f_str);
 }

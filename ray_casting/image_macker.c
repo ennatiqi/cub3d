@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_macker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 03:25:30 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/02 15:07:45 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 21:30:57 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	game_wall_printer_ext(t_game *game, int i, int j, int x)
 	y = (int)((j - game->wall->wall_start) * (64.0 / game->wall->wall_height));
 	if (game->cast->der == north)
 		mlx_put_pixel(game->img, i, j, \
-		game->texture->Ncolors[x + (y * game->texture->Nimage->width)]);
+		game->texture->ncolors[x + (y * game->texture->nimage->width)]);
 	else if (game->cast->der == south)
 		mlx_put_pixel(game->img, i, j, \
-		game->texture->Scolors[x + (y * game->texture->Simage->width)]);
+		game->texture->scolors[x + (y * game->texture->simage->width)]);
 	else if (game->cast->der == east)
 		mlx_put_pixel(game->img, i, j, \
-		game->texture->Ecolors[x + (y * game->texture->Eimage->width)]);
+		game->texture->ecolors[x + (y * game->texture->eimage->width)]);
 	else if (game->cast->der == west)
 		mlx_put_pixel(game->img, i, j, \
-		game->texture->Wcolors[x + (y * game->texture->Wimage->width)]);
+		game->texture->wcolors[x + (y * game->texture->wimage->width)]);
 }
 
 void	game_wall_printer(t_game *game, t_wall *wall, int i)
@@ -46,8 +46,8 @@ void	game_wall_printer(t_game *game, t_wall *wall, int i)
 		if (j > wall->wall_start && j < wall->wall_end)
 			game_wall_printer_ext(game, i, j, x);
 		if (j <= wall->wall_start)
-			mlx_put_pixel(game->img, i, j, game->texture->Ccolor);
+			mlx_put_pixel(game->img, i, j, game->texture->ccolor);
 		else if (j >= wall->wall_end)
-			mlx_put_pixel(game->img, i, j, game->texture->Fcolor);
+			mlx_put_pixel(game->img, i, j, game->texture->fcolor);
 	}
 }

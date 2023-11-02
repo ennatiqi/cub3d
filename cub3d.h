@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/02 15:53:26 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 21:39:01 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdio.h>
 # include <unistd.h>
-# include <string.h>
 # include <math.h>
 # include <fcntl.h>
 # include "libft/libft.h"
@@ -36,12 +35,12 @@ typedef struct s_cub
 	int		check;
 	int		maplines;
 	char	start_p;
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-	char	*F;
-	char	*C;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	*f;
+	char	*c;
 	int		x;
 	int		y;
 	int		lines;
@@ -57,7 +56,7 @@ typedef struct s_player
 	double	angle;
 }	t_player;
 
-enum s_deraction{
+enum e_direction{
 	east,
 	west,
 	north,
@@ -66,49 +65,49 @@ enum s_deraction{
 
 typedef struct s_texture
 {
-	mlx_texture_t*	Nimage;
-	mlx_texture_t*	Wimage;
-	mlx_texture_t*	Simage;
-	mlx_texture_t*	Eimage;
-	int				*Ncolors;
-	int				*Wcolors;
-	int				*Scolors;
-	int				*Ecolors;
-	char*			Wpath;
-	char*			Npath;
-	char*			Epath;
-	char*			Spath;
-	int				Ccolor;
-	int				Fcolor;
+	mlx_texture_t	*nimage;
+	mlx_texture_t	*wimage;
+	mlx_texture_t	*simage;
+	mlx_texture_t	*eimage;
+	int				*ncolors;
+	int				*wcolors;
+	int				*scolors;
+	int				*ecolors;
+	char			*wpath;
+	char			*npath;
+	char			*epath;
+	char			*spath;
+	int				ccolor;
+	int				fcolor;
 }	t_texture;
 
 typedef struct s_wall
 {
-	float dist_to_wall;
-	float wall_height;
-	float wall_start;
-	float wall_end;
-	float corrected_angle;
+	float	dist_to_wall;
+	float	wall_height;
+	float	wall_start;
+	float	wall_end;
+	float	corrected_angle;
 }	t_wall;
 
 typedef struct s_casting
 {
-	float	hx;
-	float	hy;
-	float	vx;
-	float	vy;
-	float	dx;
-	float	dy;
-	float	ra;
-	enum s_deraction	der;
+	float				hx;
+	float				hy;
+	float				vx;
+	float				vy;
+	float				dx;
+	float				dy;
+	float				ra;
+	enum e_direction	der;
 }	t_casting;
 
 typedef struct s_game
 {
 	int				height;
 	int				width;
-	mlx_t*			mlx;
-	mlx_image_t*	img;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
 	char			**maps;
 	t_player		*player;
 	t_cub			*cub;

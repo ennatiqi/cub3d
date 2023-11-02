@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+         #
+#    By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 12:22:46 by aachfenn          #+#    #+#              #
-#    Updated: 2023/11/02 15:07:35 by rennatiq         ###   ########.fr        #
+#    Updated: 2023/11/02 21:38:07 by aachfenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC		=	main.c \
 			get_next_line/get_next_line.c \
+			get_next_line/get_next_line_utils.c \
 			map_check/map_check.c \
 			map_check/map_check_2.c \
 			map_check/map_check_3.c \
@@ -58,5 +59,5 @@ fclean	:	clean
 re		: fclean all
 
 run	:  all
-	# ${RM} ${OBJ}
+	 ${RM} ${OBJ}
 	./cub3D ./maps/map.cub

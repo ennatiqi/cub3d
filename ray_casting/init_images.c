@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_images.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 02:39:14 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/02 13:30:55 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 21:30:57 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,55 +34,55 @@ void	image_load(mlx_texture_t *image, int *color)
 
 void	check_for_textures(t_game *game)
 {
-	game->texture->Eimage = mlx_load_png(game->texture->Epath);
-	if (!game->texture->Eimage)
+	game->texture->eimage = mlx_load_png(game->texture->epath);
+	if (!game->texture->eimage)
 		error("NO SUCH TEXTURE\n", game);
-	game->texture->Nimage = mlx_load_png(game->texture->Npath);
-	if (!game->texture->Nimage)
+	game->texture->nimage = mlx_load_png(game->texture->npath);
+	if (!game->texture->nimage)
 		error("NO SUCH TEXTURE\n", game);
-	game->texture->Wimage = mlx_load_png(game->texture->Wpath);
-	if (!game->texture->Wimage)
+	game->texture->wimage = mlx_load_png(game->texture->wpath);
+	if (!game->texture->wimage)
 		error("NO SUCH TEXTURE\n", game);
-	game->texture->Simage = mlx_load_png(game->texture->Spath);
-	if (!game->texture->Simage)
+	game->texture->simage = mlx_load_png(game->texture->spath);
+	if (!game->texture->simage)
 		error("NO SUCH TEXTURE\n", game);
-	if (game->texture->Simage->width != 64
-		&& game->texture->Simage->height != 64)
+	if (game->texture->simage->width != 64
+		&& game->texture->simage->height != 64)
 		error("TEXTURE SIZE MUST BE 64x64\n", game);
-	if (game->texture->Nimage->width != 64
-		&& game->texture->Nimage->height != 64)
+	if (game->texture->nimage->width != 64
+		&& game->texture->nimage->height != 64)
 		error("TEXTURE SIZE MUST BE 64x64\n", game);
-	if (game->texture->Eimage->width != 64
-		&& game->texture->Eimage->height != 64)
+	if (game->texture->eimage->width != 64
+		&& game->texture->eimage->height != 64)
 		error("TEXTURE SIZE MUST BE 64x64\n", game);
-	if (game->texture->Wimage->width != 64
-		&& game->texture->Wimage->height != 64)
+	if (game->texture->wimage->width != 64
+		&& game->texture->wimage->height != 64)
 		error("TEXTURE SIZE MUST BE 64x64\n", game);
 }
 
 void	init_images(t_game *game)
 {
-	game->texture->Epath = game->cub->EA;
-	game->texture->Npath = game->cub->NO;
-	game->texture->Wpath = game->cub->WE;
-	game->texture->Spath = game->cub->SO;
+	game->texture->epath = game->cub->ea;
+	game->texture->npath = game->cub->no;
+	game->texture->wpath = game->cub->we;
+	game->texture->spath = game->cub->so;
 	check_for_textures(game);
-	game->texture->Ccolor = get_rgba(game->cub->c_color[0],
+	game->texture->ccolor = get_rgba(game->cub->c_color[0],
 			game->cub->c_color[1], game->cub->c_color[2],
 			game->cub->c_color[3]);
-	game->texture->Fcolor = get_rgba(game->cub->f_color[0],
+	game->texture->fcolor = get_rgba(game->cub->f_color[0],
 			game->cub->f_color[1], game->cub->f_color[2],
 			game->cub->f_color[3]);
-	game->texture->Wcolors = malloc(game->texture->Wimage->width
-			* game->texture->Wimage->height * sizeof(int));
-	image_load(game->texture->Wimage, game->texture->Wcolors);
-	game->texture->Ncolors = malloc(game->texture->Nimage->width
-			* game->texture->Nimage->height * sizeof(int));
-	image_load(game->texture->Nimage, game->texture->Ncolors);
-	game->texture->Scolors = malloc(game->texture->Simage->width
-			* game->texture->Simage->height * sizeof(int));
-	image_load(game->texture->Simage, game->texture->Scolors);
-	game->texture->Ecolors = malloc(game->texture->Eimage->width
-			* game->texture->Eimage->height * sizeof(int));
-	image_load(game->texture->Eimage, game->texture->Ecolors);
+	game->texture->wcolors = malloc(game->texture->wimage->width
+			* game->texture->wimage->height * sizeof(int));
+	image_load(game->texture->wimage, game->texture->wcolors);
+	game->texture->ncolors = malloc(game->texture->nimage->width
+			* game->texture->nimage->height * sizeof(int));
+	image_load(game->texture->nimage, game->texture->ncolors);
+	game->texture->scolors = malloc(game->texture->simage->width
+			* game->texture->simage->height * sizeof(int));
+	image_load(game->texture->simage, game->texture->scolors);
+	game->texture->ecolors = malloc(game->texture->eimage->width
+			* game->texture->eimage->height * sizeof(int));
+	image_load(game->texture->eimage, game->texture->ecolors);
 }
