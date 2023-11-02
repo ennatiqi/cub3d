@@ -32,6 +32,7 @@ char **buff_map(char **map, t_cub *cub)
 		new_map[i] = ft_strdup(str);
 		i++;
 	}
+	new_map[i] = 0;
 	free(str);
 	buff_map_ext(map, new_map, cub);
 	return (new_map);
