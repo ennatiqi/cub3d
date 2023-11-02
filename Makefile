@@ -26,7 +26,7 @@ SRC		=	main.c \
 
 CC		= cc
 
-CFLAGS	= -fsanitize=address -g #-Wall -Werror -Wextra 
+CFLAGS	= #-fsanitize=address -g #-Wall -Werror -Wextra 
 
 OBJ		= ${SRC:.c=.o}
 

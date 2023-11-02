@@ -17,7 +17,8 @@ void	f(char *str, t_game *game)
 	char	*sub;
 
 	sub = ft_substr(str, 1, ft_strlen(str));
-	game->cub->F = ft_strtrim(sub, " \n");
+	if (!game->cub->F)
+		game->cub->F = ft_strtrim(sub, " \n");
 	free(sub);
 	game->cub->check_tex++;
 }
@@ -27,7 +28,8 @@ void	c(char *str, t_game *game)
 	char	*sub;
 
 	sub = ft_substr(str, 1, ft_strlen(str));
-	game->cub->C = ft_strtrim(sub, " \n");
+	if (!game->cub->C)
+		game->cub->C = ft_strtrim(sub, " \n");
 	free(sub);
 	game->cub->check_tex++;
 }

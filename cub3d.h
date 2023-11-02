@@ -3,35 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/01 15:39:21 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:54:42 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <math.h>
-#include <fcntl.h>
-#include "libft/libft.h"
-#include "get_next_line/get_next_line.h"
-#include "MLX42/include/MLX42/MLX42.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <string.h>
+# include <math.h>
+# include <fcntl.h>
+# include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
+# include "MLX42/include/MLX42/MLX42.h"
 
-
-#define WIGHT 1024
-#define HEIGHT 512
-
+# define WIGHT 1024
+# define HEIGHT 512
 # define ESC_KEY 53
 # define W_KEY 13
 # define A_KEY 0
 # define S_KEY 1
 # define D_KEY 2
-#define FOV 60
+# define FOV 60
 
 typedef struct s_cub
 {
@@ -52,13 +50,12 @@ typedef struct s_cub
 	int		*f_color;
 }	t_cub;
 
-
 typedef struct s_player
 {
-	float x;
-	float y;
-	double angle;
-} t_player;
+	float	x;
+	float	y;
+	double	angle;
+}	t_player;
 
 enum s_deraction{
 	east,
@@ -69,22 +66,20 @@ enum s_deraction{
 
 typedef struct s_texture
 {
-	mlx_texture_t* Nimage;
-	mlx_texture_t* Wimage;
-	mlx_texture_t* Simage;
-	mlx_texture_t* Eimage;
-	int *Ncolors;
-	int *Wcolors;
-	int *Scolors;
-	int *Ecolors;
-	char* Wpath;
-	char* Npath;
-	char* Epath;
-	char* Spath;
-
-	int Ccolor;
-	int Fcolor;
-
+	mlx_texture_t*	Nimage;
+	mlx_texture_t*	Wimage;
+	mlx_texture_t*	Simage;
+	mlx_texture_t*	Eimage;
+	int				*Ncolors;
+	int				*Wcolors;
+	int				*Scolors;
+	int				*Ecolors;
+	char*			Wpath;
+	char*			Npath;
+	char*			Epath;
+	char*			Spath;
+	int				Ccolor;
+	int				Fcolor;
 }	t_texture;
 
 typedef struct s_wall
@@ -105,31 +100,29 @@ typedef struct s_casting
 	float dx;
 	float dy;
 	float ra;
-	//TODO: add the enum
-	
+
 	enum s_deraction der;
 }	t_casting;
 
 typedef struct s_game
 {
-	int			height;
-	int			width;
-	mlx_t*		mlx;
+	int				height;
+	int				width;
+	mlx_t*			mlx;
 	mlx_image_t*	img;
-	char	**maps;
-	t_player *player;
-	t_cub    *cub;
-	t_casting *cast;
-	t_wall *wall;
-	t_texture *texture;
+	char			**maps;
+	t_player		*player;
+	t_cub			*cub;
+	t_casting		*cast;
+	t_wall			*wall;
+	t_texture		*texture;
 }	t_game;
-
 
 //map_check
 void	check_mid(char **map, t_game *game);
 void	check_first_line(char **map, t_cub *cub, t_game *game);
 void	check_component(char **map, t_game *game);
-int		name_check(char *name);
+int		name_check(char *name, t_game *game);
 void	error(char *str, t_game *game);
 void	check_c_f(t_cub	*cub, t_game *game);
 void	check_c_f_ext(t_cub *cub, char **c_str, char **f_str, t_game *game);
@@ -137,7 +130,8 @@ int		counter(const char *s, char c);
 int		ft_toint_check(char *str, t_game *game);
 int		ft_toint_check_ext(char *str, int res, int *i, t_game *game);
 void	to_free(t_game	*game);
-void	check_newline(char **map, t_cub *cub, t_game *game);
+void	check_newline(char **map, t_game *game);
+void	check_newline_ext(t_game *game, char *tmp, int *i, char **map);
 void	comma_calcu(char *str, t_game *game);
 
 //check_textures

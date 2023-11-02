@@ -12,34 +12,6 @@
 
 #include "cub3d.h"
 
-// void	initializer(t_game *game)
-// {
-
-// 	// game->cub->check_tex = 0;
-// 	// game->cub->NO = NULL;
-// 	// game->cub->EA = NULL;
-// 	// game->cub->SO = NULL;
-// 	// game->cub->WE = NULL;
-// 	// game->cub->C = NULL;
-// 	// game->cub->F = NULL;
-// 	// game->cub->c_color = NULL;
-// 	// game->cub->f_color = NULL;
-// 	// game->texture->Ncolors = NULL;
-// 	// game->texture->Ecolors = NULL;
-// 	// game->texture->Wcolors = NULL;
-// 	// game->texture->Scolors = NULL;
-// 	// game->texture->Npath = NULL;
-// 	// game->texture->Epath = NULL;
-// 	// game->texture->Wpath = NULL;
-// 	// game->texture->Spath = NULL;
-// 	// game->texture->Nimage = NULL;
-// 	// game->texture->Eimage = NULL;
-// 	// game->texture->Wimage = NULL;
-// 	// game->texture->Simage = NULL;
-// 	// game->img = NULL;
-// 	// game->maps = NULL;
-// }
-
 void	direction_seter(t_game *game)
 {
 	if (game->cub->start_p == 'N')
@@ -57,10 +29,9 @@ void	set_game(t_game *game, char **av)
 	char	**map;
 	char	**buff;
 
-	// initializer(game);
-	name_check(av[1]);
+	name_check(av[1], game);
 	map = just_map(av[1], game->cub, game);
-	check_newline(map, game->cub, game);
+	check_newline(map, game);
 	buff = buff_map(map, game->cub);
 	check_component(map, game);
 	check_first_line(map, game->cub, game);
@@ -101,7 +72,11 @@ void	key_press(void *game2)
 	tmpy = game->player->y;
 	speed = 2;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+	{
+		// to_free(game);
+		// system("leaks cub3D");
 		mlx_close_window(game->mlx);
+	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		game->player->angle -= 0.05;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))

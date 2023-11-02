@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:13 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 14:25:31 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:57:30 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	read_first_part(t_game *game, int fd, int lines)
 {
-	char **str;
-	int	i;
+	char	**str;
+	int		i;
 
 	i = 0;
 	str = malloc((lines + 1) * sizeof(char *));
@@ -59,8 +59,8 @@ int	read_middle_part(char **map, t_game *game, int fd, int *i)
 		}
 		if (tmp[0] != '\n')
 		{
-			map[(*i)++] = tmp_1;
 			free(tmp);
+			map[(*i)++] = tmp_1;
 			break ;
 		}
 		free(tmp_1);

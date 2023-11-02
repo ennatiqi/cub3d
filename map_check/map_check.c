@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:23 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 14:20:33 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:02:25 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void error(char *str, t_game *game)
+void	error(char *str, t_game *game)
 {
 	while (*str)
 		write(2, str++, 1);
-
 	to_free(game);
 	system("leaks cub3D");
-	exit (1);
+	exit(1);
 }
 
 void	check_mid_ext(char **map, t_game *game, int i, size_t j)
@@ -32,13 +31,12 @@ void	check_mid_ext(char **map, t_game *game, int i, size_t j)
 		error("NOT A VALID MAP <<\n", game);
 	if ((map[i][j] == '0' || map[i][j] == game->cub->start_p))
 	{
-		// TODO the (+1) was added recently and should be reviewed
 		if (i == game->cub->lines + 1)
-			error("NOT A VALID MAP 1\n", game);
+			error("NOT A VALID MAP\n", game);
 		if (j > ft_strlen(map[i + 1]))
-			error("NOT A VALID MAP 2\n", game);
+			error("NOT A VALID MAP\n", game);
 		if (map[i + 1][j] == 32 || map[i + 1][j] == '\n')
-			error("NOT A VALID MAP 3\n", game);
+			error("NOT A VALID MAP\n", game);
 	}
 	if (i - 1 < (game->cub->lines) && (map[i][j] == '0' \
 	|| map[i][j] == game->cub->start_p) && (map[i - 1][j] == 32 \

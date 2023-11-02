@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 10:59:29 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 14:25:34 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:55:55 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char **buff_map(char **map, t_cub *cub)
+char	**buff_map(char **map, t_cub *cub)
 {
 	int		i;
 	char	**new_map;
-	int		width = width_calc(map) - 1;
+	int		width;
 	char	*str;
 
 	i = 0;
+	width = width_calc(map) - 1;
 	str = malloc((width + 1) * sizeof(char));
 	i = 0;
 	while (i < width)
@@ -32,7 +33,7 @@ char **buff_map(char **map, t_cub *cub)
 		new_map[i] = ft_strdup(str);
 		i++;
 	}
-	new_map[i] = 0;
+	new_map[i] = NULL;
 	free(str);
 	buff_map_ext(map, new_map, cub);
 	return (new_map);

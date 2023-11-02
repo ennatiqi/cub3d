@@ -12,7 +12,22 @@
 
 #include "../cub3d.h"
 
-void	check_newline(char **map, t_cub *cub, t_game *game)
+void	check_newline_ext(t_game *game, char *tmp, int *i, char **map)
+{
+	while (*i < game->cub->lines - 1)
+	{
+		free(tmp);
+		tmp = ft_strtrim(map[(*i)], " ");
+		if (tmp[0] != '\n') 
+		{
+			free(tmp);
+			error("AN ERROR OCCURED\n", game);
+		}
+		(*i)++;
+	}
+}
+
+void	check_newline(char **map, t_game *game)
 {
 	char	*tmp;
 	int		i;
@@ -31,23 +46,12 @@ void	check_newline(char **map, t_cub *cub, t_game *game)
 		if (tmp[0] == '\n')
 		{
 			j++;
-			while (i < cub->lines - 1)
-			{
-				free(tmp);
-				tmp = ft_strtrim(map[i], " ");
-				if (tmp[0] != '\n') 
-				{
-					free(tmp);
-					error("AN ERROR OCCURED\n", game);
-				}
-				i++;
-			}
+			check_newline_ext(game, tmp, &i, map);
 		}
 		free(tmp);
 		i++;
 	}
 }
-
 
 int	counter(const char *s, char c)
 {

@@ -17,7 +17,8 @@ void	no(char *str, t_game *game)
 	char	*sub;
 
 	sub = ft_substr(str, 2, ft_strlen(str));
-	game->cub->NO = ft_strtrim(sub, " \n");
+	if (!game->cub->NO)
+		game->cub->NO = ft_strtrim(sub, " \n");
 	free(sub);
 	game->cub->check_tex++;
 }
@@ -27,7 +28,8 @@ void	so(char *str, t_game *game)
 	char	*sub;
 
 	sub = ft_substr(str, 2, ft_strlen(str));
-	game->cub->SO = ft_strtrim(sub, " \n");
+	if (!game->cub->SO)
+		game->cub->SO = ft_strtrim(sub, " \n");
 	free(sub);
 	game->cub->check_tex++;
 }
@@ -37,7 +39,8 @@ void	we(char *str, t_game *game)
 	char	*sub;
 
 	sub = ft_substr(str, 2, ft_strlen(str));
-	game->cub->WE = ft_strtrim(sub, " \n");
+	if (!game->cub->WE)
+		game->cub->WE = ft_strtrim(sub, " \n");
 	free(sub);
 	game->cub->check_tex++;
 }
@@ -47,7 +50,8 @@ void	ea(char *str, t_game *game)
 	char	*sub;
 
 	sub = ft_substr(str, 2, ft_strlen(str));
-	game->cub->EA = ft_strtrim(sub, " \n");
+	if (!game->cub->EA)
+		game->cub->EA = ft_strtrim(sub, " \n");
 	free(sub);
 	game->cub->check_tex++;
 }
@@ -71,8 +75,9 @@ int	check_for_map(char *s, t_cub *cub, t_game *game)
 		c(str, game);
 	else if (ft_isalnum(str[0]))
 	{
-		free(str);
 		error("UNKNOWN ASSET\n", game);
+		free(str);
+		exit(0);
 	}
 	free(str);
 	if (cub->check_tex == 6)

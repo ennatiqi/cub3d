@@ -98,7 +98,7 @@ void	check_first_line(char **map, t_cub *cub, t_game *game)
 	}
 }
 
-int	name_check(char *name)
+int	name_check(char *name, t_game *game)
 {
 	int		j;
 
@@ -107,9 +107,6 @@ int	name_check(char *name)
 	name[j + 2] == 'u' && name[j + 3] == 'b')
 		return (1);
 	else
-	{
-		printf("YOUR MAP DOENS'T END WHITH '.cub'\n");
-		exit(0);
-	}
+		error("YOUR MAP DOENS'T END WHITH '.cub'\n", game);
 	return (0);
 }
