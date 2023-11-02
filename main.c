@@ -12,32 +12,33 @@
 
 #include "cub3d.h"
 
-void	initializer(t_game *game)
-{
-	game->cub->check_tex = 0;
-	game->cub->NO = NULL;
-	game->cub->EA = NULL;
-	game->cub->SO = NULL;
-	game->cub->WE = NULL;
-	game->cub->C = NULL;
-	game->cub->F = NULL;
-	game->cub->c_color = NULL;
-	game->cub->f_color = NULL;
-	game->texture->Ncolors = NULL;
-	game->texture->Ecolors = NULL;
-	game->texture->Wcolors = NULL;
-	game->texture->Scolors = NULL;
-	game->texture->Npath = NULL;
-	game->texture->Epath = NULL;
-	game->texture->Wpath = NULL;
-	game->texture->Spath = NULL;
-	game->texture->Nimage = NULL;
-	game->texture->Eimage = NULL;
-	game->texture->Wimage = NULL;
-	game->texture->Simage = NULL;
-	game->img = NULL;
-	game->maps = NULL;
-}
+// void	initializer(t_game *game)
+// {
+
+// 	// game->cub->check_tex = 0;
+// 	// game->cub->NO = NULL;
+// 	// game->cub->EA = NULL;
+// 	// game->cub->SO = NULL;
+// 	// game->cub->WE = NULL;
+// 	// game->cub->C = NULL;
+// 	// game->cub->F = NULL;
+// 	// game->cub->c_color = NULL;
+// 	// game->cub->f_color = NULL;
+// 	// game->texture->Ncolors = NULL;
+// 	// game->texture->Ecolors = NULL;
+// 	// game->texture->Wcolors = NULL;
+// 	// game->texture->Scolors = NULL;
+// 	// game->texture->Npath = NULL;
+// 	// game->texture->Epath = NULL;
+// 	// game->texture->Wpath = NULL;
+// 	// game->texture->Spath = NULL;
+// 	// game->texture->Nimage = NULL;
+// 	// game->texture->Eimage = NULL;
+// 	// game->texture->Wimage = NULL;
+// 	// game->texture->Simage = NULL;
+// 	// game->img = NULL;
+// 	// game->maps = NULL;
+// }
 
 void	direction_seter(t_game *game)
 {
@@ -56,7 +57,7 @@ void	set_game(t_game *game, char **av)
 	char	**map;
 	char	**buff;
 
-	initializer(game);
+	// initializer(game);
 	name_check(av[1]);
 	map = just_map(av[1], game->cub, game);
 	check_newline(map, game->cub, game);
@@ -184,18 +185,23 @@ void	allocation(t_game *game)
 	game->player = malloc (sizeof(t_player));
 	if (!game->player)
 		error("ERROR IN MALLOC\n", game);
+	ft_bzero(game->player, sizeof(t_player));
 	game->cub = malloc(sizeof(t_cub));
 	if (!game->cub)
 		error("ERROR IN MALLOC\n", game);
+	ft_bzero(game->cub, sizeof(t_cub));
 	game->cast = malloc(sizeof(t_casting));
 	if (!game->cast)
 		error("ERROR IN MALLOC\n", game);
+	ft_bzero(game->cast, sizeof(t_casting));
 	game->wall = malloc(sizeof(t_wall));
 	if (!game->wall)
 		error("ERROR IN MALLOC\n", game);
+	ft_bzero(game->wall, sizeof(t_wall));
 	game->texture = malloc(sizeof(t_texture));
 	if (!game->texture)
 		error("ERROR IN MALLOC\n", game);
+	ft_bzero(game->texture, sizeof(t_texture));
 }
 
 void	initialize_mlx(t_game * game)
@@ -224,6 +230,7 @@ int main(int ac, char **av)
 		game = malloc(sizeof(t_game));
 		if (!game)
 			error("ERROR IN MALLOC\n", game);
+		ft_bzero(game, sizeof(t_game));
 		allocation(game);
 		set_game(game, av);
 		initialize_mlx(game);

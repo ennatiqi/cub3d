@@ -107,6 +107,9 @@ int	name_check(char *name)
 	name[j + 2] == 'u' && name[j + 3] == 'b')
 		return (1);
 	else
+	{
 		printf("YOUR MAP DOENS'T END WHITH '.cub'\n");
+		exit(0);
+	}
 	return (0);
 }

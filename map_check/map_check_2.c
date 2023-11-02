@@ -25,22 +25,21 @@ void	check_newline(char **map, t_cub *cub, t_game *game)
 		tmp = ft_strtrim(map[i], " ");
 		if (tmp[0] != '\n' && j > 0)
 		{
-			error("AN ERROR OCCURED\n", game);
 			free(tmp);
+			error("AN ERROR OCCURED\n", game);
 		}
 		if (tmp[0] == '\n')
 		{
 			j++;
 			while (i < cub->lines - 1)
 			{
+				free(tmp);
 				tmp = ft_strtrim(map[i], " ");
 				if (tmp[0] != '\n') 
 				{
 					free(tmp);
 					error("AN ERROR OCCURED\n", game);
 				}
-				//TODO: free tmp should be reviewed if there is an error at the end after the \n
-				free(tmp);
 				i++;
 			}
 		}

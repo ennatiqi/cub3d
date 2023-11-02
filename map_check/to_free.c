@@ -27,8 +27,6 @@ void	to_free(t_game	*game)
 		if (game->texture)
 		{
 			free_textures(game);
-			if (game->texture->Spath)
-				free(game->texture->Spath);
 			free(game->texture);
 		}
 		if (game->maps)
@@ -67,12 +65,6 @@ void	free_textures(t_game *game)
 		free(game->texture->Wcolors);
 	if (game->texture->Scolors)
 		free(game->texture->Scolors);
-	if (game->texture->Npath)
-		free(game->texture->Npath);
-	if (game->texture->Epath)
-		free(game->texture->Epath);
-	if (game->texture->Wpath)
-		free(game->texture->Wpath);
 }
 
 void	free_cub(t_game *game)

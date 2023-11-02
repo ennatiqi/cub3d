@@ -71,9 +71,8 @@ int	check_for_map(char *s, t_cub *cub, t_game *game)
 		c(str, game);
 	else if (ft_isalnum(str[0]))
 	{
-		error("UNKNOWN ASSET\n", game);
 		free(str);
-		exit(0);
+		error("UNKNOWN ASSET\n", game);
 	}
 	free(str);
 	if (cub->check_tex == 6)
