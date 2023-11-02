@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:48:17 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/02 14:57:27 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:51:52 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	initialize_mlx(t_game *game)
 	mlx_loop(game->mlx);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_game	*game;
 
@@ -103,8 +103,6 @@ int main(int ac, char **av)
 		allocation(game);
 		set_game(game, av);
 		initialize_mlx(game);
-		// to_free(game);
-		// system("leaks cub3D");
 	}
 	return (0);
 }

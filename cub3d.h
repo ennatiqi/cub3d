@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/02 15:49:09 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:53:26 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,14 @@ typedef struct s_wall
 
 typedef struct s_casting
 {
-	float hx;
-	float hy;
-	float vx;
-	float vy;
-	float dx;
-	float dy;
-	float ra;
-
-	enum s_deraction der;
+	float	hx;
+	float	hy;
+	float	vx;
+	float	vy;
+	float	dx;
+	float	dy;
+	float	ra;
+	enum s_deraction	der;
 }	t_casting;
 
 typedef struct s_game
