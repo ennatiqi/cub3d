@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:14:12 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 17:04:06 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:51:11 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_newline_ext(t_game *game, char *tmp, int *i, char **map)
 	}
 }
 
-void	check_newline(char **map, t_cub *cub, t_game *game)
+void	check_newline(char **map, t_game *game)
 {
 	char	*tmp;
 	int		i;

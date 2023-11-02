@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 08:08:41 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/11/01 15:39:21 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:51:19 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		counter(const char *s, char c);
 int		ft_toint_check(char *str, t_game *game);
 int		ft_toint_check_ext(char *str, int res, int *i, t_game *game);
 void	to_free(t_game	*game);
-void	check_newline(char **map, t_cub *cub, t_game *game);
+void	check_newline(char **map, t_game *game);
 void	comma_calcu(char *str, t_game *game);
 
 //check_textures

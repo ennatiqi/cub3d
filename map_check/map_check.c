@@ -6,7 +6,7 @@
 /*   By: aachfenn <aachfenn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:19:23 by aachfenn          #+#    #+#             */
-/*   Updated: 2023/11/01 14:20:33 by aachfenn         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:30:15 by aachfenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void error(char *str, t_game *game)
 	while (*str)
 		write(2, str++, 1);
 	to_free(game);
-	system("leaks cub3D");
+	// system("leaks cub3D");
 	exit (1);
 }
 
@@ -31,7 +31,6 @@ void	check_mid_ext(char **map, t_game *game, int i, size_t j)
 		error("NOT A VALID MAP <<\n", game);
 	if ((map[i][j] == '0' || map[i][j] == game->cub->start_p))
 	{
-		// TODO the (+1) was added recently and should be reviewed
 		if (i == game->cub->lines + 1)
 			error("NOT A VALID MAP 1\n", game);
 		if (j > ft_strlen(map[i + 1]))
